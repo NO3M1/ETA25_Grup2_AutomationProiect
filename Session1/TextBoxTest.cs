@@ -9,7 +9,7 @@ namespace AutomationProject.Session1
         IWebDriver driver;
 
         [Test]
-        public void Test1()
+        public void TextBoxMethod()
         {
             driver = new ChromeDriver();
 
@@ -44,9 +44,9 @@ namespace AutomationProject.Session1
             IWebElement elementCheckBoxButon = driver.FindElement(By.XPath("//span[text()='Check Box']"));
             elementCheckBoxButon.Click();
 
-            IWebElement elementExpandCollapse = driver.FindElement(By.XPath("//*[@id=\"tree-node\"]/ol/li/span/button"));
+            IWebElement checkBoxExpandCollapse = driver.FindElement(By.XPath("//*[@id=\"tree-node\"]/ol/li/span/button"));
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
-            elementExpandCollapse.Click();
+            checkBoxExpandCollapse.Click();
 
             IWebElement checkBoxDesktop = driver.FindElement(By.XPath("//*[@id=\"tree-node\"]/ol/li/ol/li[1]/span/label/span[1]"));
             checkBoxDesktop.Click();
