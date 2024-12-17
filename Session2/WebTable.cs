@@ -31,45 +31,73 @@ namespace AutomationProject.Session2
             IWebElement addBtnWebTables = webDriver.FindElement(By.Id("addNewRecordButton"));
             addBtnWebTables.Click();
 
-            IWebElement popupRegistrationFirstName = webDriver.FindElement(By.Id("firstName"));
-            IWebElement popupRegistrationLastName = webDriver.FindElement(By.Id("lastName"));
-            IWebElement popupRegistrationEmail = webDriver.FindElement(By.Id("userEmail"));
-            IWebElement popupRegistrationAge = webDriver.FindElement(By.Id("age"));
-            IWebElement popupRegistrationSalary = webDriver.FindElement(By.Id("salary"));
-            IWebElement popupRegistrationDepartment = webDriver.FindElement(By.Id("department"));
+            PopulateRegistrationForm(webDriver, "Loredana", "Penea", "loredana.penea@email.com", "36", "5500", "IT");
+            // IWebElement newRowTable = webDriver.FindElement(By.XPath("//div[@class='rt-tr-group'][4]"));
+            // IWebElement firstNameInTable = webDriver.FindElement(By.XPath("//div[@class='rt-tr-group'][4]//*[@class='rt-td'][1]"));
+            // IWebElement lastNameInTable = webDriver.FindElement(By.XPath("//div[@class='rt-tr-group'][4]//*[@class='rt-td'][2]"));
 
-            popupRegistrationFirstName.SendKeys("Loredana");
-            String lastName = "Penea";
-            popupRegistrationLastName.SendKeys(lastName);
-            popupRegistrationEmail.SendKeys("loredana.penea@email.com");
-            popupRegistrationAge.SendKeys("36");
-            popupRegistrationSalary.SendKeys("5000");
-            popupRegistrationDepartment.SendKeys("IT");
+            string firstNameInTable = GetColumnFromRow(4, 1);
+            string lastNameInTable = GetColumnFromRow(4, 2);
+            string emailInTable = GetColumnFromRow(4, 3);
+            string ageInTable = GetColumnFromRow(4, 4);
+            string salaryInTable = GetColumnFromRow(4, 5);
+            string departamentInTable = GetColumnFromRow(4, 6);
 
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)webDriver;
-
-            IWebElement popupRegistrationSubmitBtn = webDriver.FindElement(By.Id("submit"));
-            //popupRegistrationSubmitBtn.Submit();
-            jse.ExecuteScript("arguments[0].click();",popupRegistrationSubmitBtn);
-
-            IWebElement newRowTable = webDriver.FindElement(By.XPath("//div[@class='rt-tr-group'][4]"));
-            IWebElement firstName = webDriver.FindElement(By.XPath("//div[@class='rt-tr-group'][4]//*[@class='rt-td'][1]"));
-            IWebElement lastNameInTable = webDriver.FindElement(By.XPath("//div[@class='rt-tr-group'][4]//*[@class='rt-td'][2]"));
-
-            Assert.That(firstName.Text.Equals("Loredana"));
-            if (lastNameInTable.Text.Equals(lastName))
+            Assert.That(firstNameInTable.Equals("Loredana"));
+            if (lastNameInTable.Equals("Penea"))
             {
-                Console.WriteLine("Is True");
+                Console.WriteLine($"Is true, last name is: {lastNameInTable}");
             }
+
+            addBtnWebTables.Click();
+            PopulateRegistrationForm(webDriver,"Ionela", "Ionescu","ionela.ionescu@email.com", "44","6000","Finance");
+
+             firstNameInTable = GetColumnFromRow(5, 1);
+             lastNameInTable = GetColumnFromRow(5, 2);
+             emailInTable = GetColumnFromRow(5, 3);
+             ageInTable = GetColumnFromRow(5, 4);
+             salaryInTable = GetColumnFromRow(5, 5);
+             departamentInTable = GetColumnFromRow(5, 6);
+
+            Console.WriteLine($"Last name from table last entry is: {firstNameInTable}  {lastNameInTable}");
+
+        }
+        public string GetColumnFromRow(int rowIndex, int columnIndex)
+        { 
+            IWebElement row = webDriver.FindElement(By.XPath($"//div[@class='rt-tr-group'][{rowIndex}]"));
+            IWebElement column = row.FindElement(By.XPath($".//div[@class='rt-td'][{columnIndex}]"));
+
+            return column.Text;
+        }
+
+        public void PopulateRegistrationForm(IWebDriver driver, string firstName, string lastName, string email, string age, string salary, string department)
+        {
+            
+            IWebElement firstNameField = driver.FindElement(By.Id("firstName"));
+            IWebElement lastNameField = driver.FindElement(By.Id("lastName"));
+            IWebElement emailField = driver.FindElement(By.Id("userEmail"));
+            IWebElement ageField = driver.FindElement(By.Id("age"));
+            IWebElement salaryField = driver.FindElement(By.Id("salary"));
+            IWebElement departmentField = driver.FindElement(By.Id("department"));
+            IWebElement registrationSubmitBtn = webDriver.FindElement(By.Id("submit"));
+
+            firstNameField.SendKeys(firstName);
+            lastNameField.SendKeys(lastName);
+            emailField.SendKeys(email);
+            ageField.SendKeys(age);
+            salaryField.SendKeys(salary);
+            departmentField.SendKeys(department);
+            
+            registrationSubmitBtn.Click();
 
         }
 
-       // [TearDown]
-       // public void TearDown()
-      //  {
-            // driver.Quit();
-           // webDriver.Close();
-       // }
+        // [TearDown]
+        //public void TearDown()
+        // {
+        // webDriver.Quit();
+        // webDriver.Close();
+        // }
     }
     
     
