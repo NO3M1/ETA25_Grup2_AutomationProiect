@@ -92,12 +92,12 @@ namespace AutomationProject.Session2
 
         }
 
-        // [TearDown]
-        //public void TearDown()
-        // {
+        [TearDown]
+        public void TearDown()
+         {
         // webDriver.Quit();
-        // webDriver.Close();
-        // }
+         webDriver.Close();
+         }
     }
     
     

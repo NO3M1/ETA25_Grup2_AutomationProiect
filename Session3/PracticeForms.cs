@@ -68,5 +68,12 @@ namespace AutomationProject.Session3
             elementSubjects.SendKeys(Keys.Enter);
             
         }
+
+         [TearDown]
+        public void TearDown()
+         {
+        // webDriver.Quit();
+         webDriver.Close();
+         }
     }
 }
