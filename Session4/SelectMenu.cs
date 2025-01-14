@@ -29,6 +29,8 @@ namespace AutomationProject.Session4
             IWebElement selectMenu = webDriver.FindElement(By.XPath("//span[text()='Select Menu']"));
             selectMenu.Click();
 
+            //make element selectable type
+
             IWebElement oldStyleMenu = webDriver.FindElement(By.Id("oldSelectMenu"));
             SelectElement dropDownOldStyle = new SelectElement(oldStyleMenu);
             //dropDown.SelectByValue("2");

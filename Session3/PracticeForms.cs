@@ -68,6 +68,8 @@ namespace AutomationProject.Session3
             elementSubjects.SendKeys(Keys.ArrowDown);
             elementSubjects.SendKeys(Keys.Enter);
 
+            //Date Picker
+
             IWebElement dateBirth = webDriver.FindElement(By.Id("dateOfBirthInput"));
             dateBirth.Click();
 
