@@ -45,48 +45,32 @@ namespace AutomationProject.Session3
             webDriver.FindElement(By.XPath("//*[text()='Select Menu']")).Click();
 
             IWebElement optionDropDown = webDriver.FindElement(By.Id("react-select-4-input"));
-            IWebElement optionDropDownArrow = webDriver.FindElement(By.XPath("//*[@class=' css-tlfecz-indicatorContainer'][1]"));
+            IWebElement optionDropDownArrow = webDriver.FindElement(By.XPath("//*[@class=' css-tlfecz-indicatorContainer'][1]")); // By.XPath(//div[@id='withOptGroup']//*[@class=' css-tlfecz-indicatorContainer']);
 
             optionDropDownArrow.Click();
             optionDropDown.SendKeys(Keys.ArrowDown);
             optionDropDown.SendKeys(Keys.ArrowDown);
             optionDropDown.SendKeys(Keys.Enter);
 
-           // IWebElement titleDropDown = webDriver.FindElement(By.Id("react-select-3-input"));
-            IWebElement titleDropDownArrow = webDriver.FindElement(By.XPath("//*[@class=' css-tlfecz-indicatorContainer'][2]"));
+           // IWebElement titleDropDown = webDriver.FindElement(By.XPath("//*[@class=' css-1wa3eu0-placeholder']")); 
+            IWebElement titleDropDownArrow = webDriver.FindElement(By.XPath("//div[@id='selectOne']//*[@class=' css-tlfecz-indicatorContainer']"));
+
+            //titleDropDown.Click();
+            //titleDropDown.SendKeys("mr");
+            //titleDropDown.SendKeys(Keys.ArrowDown);
+            //titleDropDown.SendKeys(Keys.Enter);
 
             titleDropDownArrow.Click();
-
+            titleDropDownArrow.SendKeys(Keys.ArrowDown);
+            titleDropDownArrow.SendKeys(Keys.ArrowDown);
+            titleDropDownArrow.SendKeys(Keys.Enter) ;
         }
-
-        //public void SelectMenuMethod()
-        //{
-        //    webDriver = new ChromeDriver();
-        //    webDriver.Navigate().GoToUrl("https://demoqa.com/");
-        //    webDriver.Manage().Window.Maximize();
-
-        //    IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
-        //    jsExec.ExecuteScript("window.scrollTo(0,1000)");
-
-        //    IWebElement widgetsButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][4]"));
-        //    widgetsButton.Click();
-
-        //    webDriver.FindElement(By.XPath("//*[text()='Select Menu']")).Click();
-        //    IWebElement optionDropDown = webDriver.FindElement(By.Id("react-select-4-input"));
-        //    IWebElement optionDropDownArrow = webDriver.FindElement(By.XPath("//*[@class=' css-tlfecz-indicatorContainer'][1]"));
-            
-        //    optionDropDownArrow.Click();
-        //    optionDropDown.SendKeys(Keys.ArrowDown);
-        //    optionDropDown.SendKeys(Keys.ArrowDown);
-        //    optionDropDown.SendKeys(Keys.ArrowDown);
-        //    optionDropDown.SendKeys(Keys.Enter);
-        //}
 
         [TearDown]
         public void TearDown()
          {
-        // webDriver.Quit();
-           //webDriver.Close();
+           //webDriver.Quit();
+           webDriver.Close();
          }
     }
 }
