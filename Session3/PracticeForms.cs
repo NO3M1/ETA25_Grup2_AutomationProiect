@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,14 +67,27 @@ namespace AutomationProject.Session3
             elementSubjects.SendKeys(Keys.ArrowDown);
             elementSubjects.SendKeys(Keys.ArrowDown);
             elementSubjects.SendKeys(Keys.Enter);
-            
+
+            IWebElement dateBirth = webDriver.FindElement(By.Id("dateOfBirthInput"));
+            dateBirth.Click();
+
+            IWebElement datePickerMonth = webDriver.FindElement(By.XPath("//select[@class='react-datepicker__month-select']"));
+            SelectElement monthDropDown = new SelectElement(datePickerMonth);
+            monthDropDown.SelectByValue("2");
+
+            IWebElement datePickerYear = webDriver.FindElement(By.XPath("//select[@class='react-datepicker__year-select']"));
+            SelectElement yearDropDown = new SelectElement(datePickerYear);
+            yearDropDown.SelectByValue("1990");
+
+            IWebElement datePickerDate = webDriver.FindElement(By.XPath("//*[@class='react-datepicker__day react-datepicker__day--026' and not (contains(@class, '--outside-month'))]"));
+            datePickerDate.Click();
         }
 
          [TearDown]
         public void TearDown()
          {
         // webDriver.Quit();
-         webDriver.Close();
+         //webDriver.Close();
          }
     }
 }

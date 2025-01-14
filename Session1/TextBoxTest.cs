@@ -60,7 +60,7 @@ namespace AutomationProject.Session1
         [TearDown]
         public void TearDown()
         {
-           // driver.Quit();
+            driver.Quit();
             driver.Close();
         }
     }

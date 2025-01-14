@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,26 +52,26 @@ namespace AutomationProject.Session3
             optionDropDown.SendKeys(Keys.ArrowDown);
             optionDropDown.SendKeys(Keys.ArrowDown);
             optionDropDown.SendKeys(Keys.Enter);
-
-           // IWebElement titleDropDown = webDriver.FindElement(By.XPath("//*[@class=' css-1wa3eu0-placeholder']")); 
-            IWebElement titleDropDownArrow = webDriver.FindElement(By.XPath("//div[@id='selectOne']//*[@class=' css-tlfecz-indicatorContainer']"));
-
-            //titleDropDown.Click();
-            //titleDropDown.SendKeys("mr");
-            //titleDropDown.SendKeys(Keys.ArrowDown);
-            //titleDropDown.SendKeys(Keys.Enter);
-
+            
+            Actions actions = new Actions(webDriver);
+            IWebElement titleDropDownArrow = webDriver.FindElement(By.XPath("//div[@id='selectOne']")); //(By.XPath("//div[@id='selectOne']//*[@class=' css-tlfecz-indicatorContainer']"));
+            
             titleDropDownArrow.Click();
-            titleDropDownArrow.SendKeys(Keys.ArrowDown);
-            titleDropDownArrow.SendKeys(Keys.ArrowDown);
-            titleDropDownArrow.SendKeys(Keys.Enter) ;
+            actions.SendKeys("Mr." + Keys.Enter)
+                .Build()
+                .Perform();
+
+            //titleDropDown.SendKeys("mr");
+            //titleDropDownArrow.SendKeys(Keys.ArrowDown);
+            //titleDropDownArrow.SendKeys(Keys.ArrowDown);
+            //titleDropDownArrow.SendKeys(Keys.Enter) ;
         }
 
         [TearDown]
         public void TearDown()
          {
            //webDriver.Quit();
-           webDriver.Close();
+           //webDriver.Close();
          }
     }
 }
