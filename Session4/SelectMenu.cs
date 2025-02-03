@@ -12,6 +12,7 @@ namespace AutomationProject.Session4
     public class SelectMenu
     {
         IWebDriver webDriver;
+
         [Test]
         public void SelectMenuTest()
         {
@@ -41,6 +42,12 @@ namespace AutomationProject.Session4
             standardMultiSelect.SelectByValue("saab");
             standardMultiSelect.SelectByValue("opel");
 
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            //webDriver.Close();
         }
     }
 }
