@@ -71,7 +71,7 @@ namespace AutomationProject.Session3
         public void TearDown()
          {
            //webDriver.Quit();
-           //webDriver.Close();
+           webDriver.Close();
          }
     }
 }

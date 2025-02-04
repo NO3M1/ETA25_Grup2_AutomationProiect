@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenQA.Selenium.Interactions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AutomationProject.Session5
 {
@@ -33,16 +35,21 @@ namespace AutomationProject.Session5
             for (int i = 0; i < listNumbers.Count; i++) 
                 Console.WriteLine(listNumbers[i].Text);
 
-            foreach (IWebElement element in listNumbers)  Console.WriteLine(element.Text);
+           // foreach (IWebElement element in listNumbers)  Console.WriteLine(element.Text);
 
             IWebElement gridMenu = webDriver.FindElement(By.Id("demo-tab-grid"));
             gridMenu.Click();
 
             List<IWebElement> listElementsGrid = webDriver.FindElements(By.XPath("//div[@id='demo-tabpane-grid']//div[@class='list-group-item list-group-item-action']")).ToList();
             List<string> elementsFromGridToText = new List<string>();
+
+            Dictionary<string, IWebElement> elementMapping = new Dictionary<string, IWebElement>();
+
             foreach (IWebElement element in listElementsGrid)
             {
                 elementsFromGridToText.Add(element.Text);
+                elementMapping[element.Text] = element;  // Store element reference by text
+
             }
             Dictionary <string, int> textToNumber = new Dictionary<string, int>()
             {
@@ -50,21 +57,35 @@ namespace AutomationProject.Session5
                 { "Four", 4 }, { "Five", 5 }, { "Six", 6 },
                 { "Seven", 7 }, { "Eight", 8 }, { "Nine", 9 }
             };
+
             // Custom sort logic
             elementsFromGridToText.Sort((a, b) =>
             {
                 int numA = textToNumber[a];
                 int numB = textToNumber[b];
-
                 // If one is odd and the other is even, prioritize odd numbers
                 if (numA % 2 != numB % 2)
                     return (numA % 2 == 0) ? 1 : -1;
-
                 // Otherwise, maintain natural order
                 return numA.CompareTo(numB);
             });
+            Console.WriteLine(string.Join(", ", elementsFromGridToText)); 
 
-            Console.WriteLine(string.Join(", ", elementsFromGridToText));
+            // ** Drag and Drop **
+            /* Actions actions = new Actions(webDriver);
+            foreach (var text in elementsFromGridToText)
+            {
+                int number = textToNumber[text];
+
+                if (number % 2 != 0)
+                {
+                    IWebElement sourceElement = elementMapping[text];
+                    IWebElement targetElement = webDriver.FindElement(By.XPath("//div[@id='demo-tabpane-grid']//div[@class='list-group-item list-group-item-action' and contains(text(), 'One')]")); 
+                    //Second element = two, will be in the same position and the sorting is not correct 
+                    Console.WriteLine($"Dragging {text} ...");
+                    actions.DragAndDrop(sourceElement, targetElement).Perform();
+                }
+            } */
         }
 
         [Test]

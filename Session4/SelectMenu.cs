@@ -47,7 +47,7 @@ namespace AutomationProject.Session4
         [TearDown]
         public void TearDown()
         {
-            //webDriver.Close();
+            webDriver.Close();
         }
     }
 }
