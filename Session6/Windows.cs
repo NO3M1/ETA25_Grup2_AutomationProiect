@@ -35,7 +35,7 @@ namespace AutomationProject.Session6
             webDriver.SwitchTo().Window(tabList[1]);
 
             IWebElement textNewTab = webDriver.FindElement(By.Id("sampleHeading"));
-            Console.WriteLine($"Text from tab is: {textNewTab.Text}");
+            Console.WriteLine($"Text from new tab is: {textNewTab.Text}");
 
             webDriver.Close();
             webDriver.SwitchTo().Window(tabList[0]);
@@ -45,7 +45,7 @@ namespace AutomationProject.Session6
             List<string> windowList = new List<string>(webDriver.WindowHandles);
             webDriver.SwitchTo().Window(windowList[1]);
             IWebElement textNewWindow = webDriver.FindElement(By.Id("sampleHeading"));
-            Console.WriteLine($"Text from window is: {textNewWindow.Text}");
+            Console.WriteLine($"Text from new window is: {textNewWindow.Text}");
         }
         [TearDown]
         public void TearDown()
