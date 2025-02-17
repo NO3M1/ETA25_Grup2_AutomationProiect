@@ -9,7 +9,7 @@ namespace AutomationProject.Session7
     public  class ListsArrays
     {
         [Test]
-        public void TestMultimi()
+        public void TestList_Arrays()
         {
             Dictionary<string, string> obiecte = new Dictionary<string, string>
             {
