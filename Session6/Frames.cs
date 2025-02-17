@@ -72,6 +72,25 @@ namespace AutomationProject.Session6
             Console.WriteLine("Child frame text is: " + childFrameText);
 
         }
+        [Test]
+        public void Modals()
+        {
+            webDriver = new ChromeDriver();
+            webDriver.Navigate().GoToUrl("https://demoqa.com/");
+            webDriver.Manage().Window.Maximize();
+
+            IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
+            jsExec.ExecuteScript("window.scrollTo(0,1000)");
+
+            IWebElement alertsFramesButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][3]"));
+            alertsFramesButton.Click();
+
+            List<IWebElement> listFrames = webDriver.FindElements(By.XPath("//div[@class='element-list collapse show']//li[@class='btn btn-light ']")).ToList();
+            listFrames[4].Click();
+
+            IWebElement smallModal = webDriver.FindElement(By.Id("showSmallModal"));
+            smallModal.Click();
+        }
 
         [TearDown]
         public void TearDown()
