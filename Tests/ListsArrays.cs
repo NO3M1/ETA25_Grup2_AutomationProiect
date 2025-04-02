@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutomationProject.Session7
+namespace AutomationProject.Tests
 {
-    public  class ListsArrays
+    public class ListsArrays
     {
         [Test]
         public void TestList_Arrays()
@@ -20,13 +20,13 @@ namespace AutomationProject.Session7
 
             foreach (var obiect in obiecte)
             {
-                Console.WriteLine($"Key is: { obiect.Key}");
+                Console.WriteLine($"Key is: {obiect.Key}");
                 Console.WriteLine($"Value is: {obiect.Value}");
             }
 
             Dictionary<string, List<string>> classifications = new Dictionary<string, List<string>>();
-            List<string> citiesOfRomania = new List<string> { "Bucuresti","Timisoara", "Iasi" };
-            List<string> citiesOfFrance = new List<string> { "Paris","Lyon", ""};
+            List<string> citiesOfRomania = new List<string> { "Bucuresti", "Timisoara", "Iasi" };
+            List<string> citiesOfFrance = new List<string> { "Paris", "Lyon", "" };
             List<string> citiesOfItaly = new List<string> { "Roma", "Napoli", "Milano" };
 
             classifications.Add("Romania", citiesOfRomania);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
-namespace AutomationProject.Session8
+namespace AutomationProject.Tests
 {
     public class Alerts
     {
@@ -39,7 +39,7 @@ namespace AutomationProject.Session8
             IWebElement alertButton2 = webDriver.FindElement(By.Id("timerAlertButton"));
             alertButton2.Click();
 
-            WebDriverWait wait = new WebDriverWait(webDriver,TimeSpan.FromSeconds(7));
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(7));
             wait.Until(ExpectedConditions.AlertIsPresent());
 
             IAlert alertDelay = webDriver.SwitchTo().Alert();

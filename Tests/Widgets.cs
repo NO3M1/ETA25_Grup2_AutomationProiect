@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutomationProject.Session3
+namespace AutomationProject.Tests
 {
     public class Widgets
     {
         IWebDriver webDriver;
-       
+
         [Test]
 
         public void AutoCompleteMethod()
@@ -52,10 +52,10 @@ namespace AutomationProject.Session3
             optionDropDown.SendKeys(Keys.ArrowDown);
             optionDropDown.SendKeys(Keys.ArrowDown);
             optionDropDown.SendKeys(Keys.Enter);
-            
+
             Actions actions = new Actions(webDriver);
             IWebElement titleDropDownArrow = webDriver.FindElement(By.XPath("//div[@id='selectOne']")); //(By.XPath("//div[@id='selectOne']//*[@class=' css-tlfecz-indicatorContainer']"));
-            
+
             titleDropDownArrow.Click();
             actions.SendKeys("Mr." + Keys.Enter)
                 .Build()
@@ -69,9 +69,9 @@ namespace AutomationProject.Session3
 
         [TearDown]
         public void TearDown()
-         {
-           //webDriver.Quit();
-           webDriver.Close();
-         }
+        {
+            //webDriver.Quit();
+            webDriver.Close();
+        }
     }
 }

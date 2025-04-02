@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using AutomationProject.HelperMethods;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -7,11 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutomationProject.Session3
+namespace AutomationProject.Tests
 {
     public class PracticeForms
     {
         IWebDriver webDriver;
+        ElementMethods elementMethods;
 
         [Test]
 
@@ -29,7 +31,7 @@ namespace AutomationProject.Session3
 
             IWebElement elementPracticeForms = webDriver.FindElement(By.XPath("//*[text()='Practice Form']"));
             elementPracticeForms.Click();
-            
+
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
             IWebElement genderMale = webDriver.FindElement(By.XPath("//label[@for='gender-radio-1']"));
@@ -50,15 +52,15 @@ namespace AutomationProject.Session3
 
             switch (gender)
             {
-                case "Male": 
-                    genderMale.Click(); 
+                case "Male":
+                    genderMale.Click();
                     break;
-                case "Female": 
+                case "Female":
                     genderFemale.Click();
                     break;
                 case "Other":
                     genderOther.Click();
-                    break;   
+                    break;
             }
 
             IWebElement elementSubjects = webDriver.FindElement(By.Id("subjectsInput"));
@@ -81,7 +83,7 @@ namespace AutomationProject.Session3
 
             //    subjectFlag = false;
             //}    
- 
+
             //IWebElement iconToRemove = webDriver.FindElement(By.XPath("(//div[contains(@class, 'subjects-auto-complete__multi-value__remove')])[2]"));
             //iconToRemove.Click();
 
@@ -112,14 +114,16 @@ namespace AutomationProject.Session3
             webDriver.Navigate().GoToUrl("https://demoqa.com/");
             webDriver.Manage().Window.Maximize();
 
+            elementMethods = new ElementMethods(webDriver);
+
             IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
             IWebElement formsButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][2]"));
-            formsButton.Click();
+            elementMethods.ClickOnElement(formsButton);
 
             IWebElement elementPracticeForms = webDriver.FindElement(By.XPath("//*[text()='Practice Form']"));
-            elementPracticeForms.Click();
+            elementMethods.ClickOnElement(elementPracticeForms);
 
             IWebElement sportsCheckBox = webDriver.FindElement(By.XPath("//label[@for='hobbies-checkbox-1']"));
             IWebElement readingCheckBox = webDriver.FindElement(By.XPath("//label[@for='hobbies-checkbox-2']"));
@@ -137,7 +141,7 @@ namespace AutomationProject.Session3
             foreach (IWebElement hobby in hobbiesList)
             {
                 foreach (string item in hobbiesArray)
-                    if (hobby.Text.Equals(item)) hobby.Click();
+                    if (hobby.Text.Equals(item)) elementMethods.ClickOnElement(hobby);
             }
 
 
@@ -145,9 +149,9 @@ namespace AutomationProject.Session3
 
         [TearDown]
         public void TearDown()
-         {
-        // webDriver.Quit();
-          webDriver.Close();
-         }
+        {
+            // webDriver.Quit();
+            webDriver.Close();
+        }
     }
 }

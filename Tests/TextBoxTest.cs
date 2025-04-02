@@ -1,7 +1,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
-namespace AutomationProject.Session1
+namespace AutomationProject.Tests
 {
     public class TextBoxTest
     {
@@ -40,7 +40,7 @@ namespace AutomationProject.Session1
             IWebElement buttonSubmit = driver.FindElement(By.Id("submit"));
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
             buttonSubmit.Click();
-            
+
             IWebElement elementCheckBoxButon = driver.FindElement(By.XPath("//span[text()='Check Box']"));
             elementCheckBoxButon.Click();
 
@@ -54,7 +54,7 @@ namespace AutomationProject.Session1
             if (checkBoxDesktopSelection)
                 Console.WriteLine("Check Box is not checked");
             else Console.WriteLine("Check Box is checked");
-            
+
         }
 
         [TearDown]

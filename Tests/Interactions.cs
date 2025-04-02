@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using OpenQA.Selenium.Interactions;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace AutomationProject.Session5
+namespace AutomationProject.Tests
 {
     public class Interactions
     {
@@ -32,10 +32,10 @@ namespace AutomationProject.Session5
 
             List<IWebElement> listNumbers = webDriver.FindElements(By.XPath("//div[@class='vertical-list-container mt-4']/div")).ToList();
             // //div[@class='vertical-list-container mt-4']/div[@class='list-group-item list-group-item-action']
-            for (int i = 0; i < listNumbers.Count; i++) 
+            for (int i = 0; i < listNumbers.Count; i++)
                 Console.WriteLine(listNumbers[i].Text);
 
-           // foreach (IWebElement element in listNumbers)  Console.WriteLine(element.Text);
+            // foreach (IWebElement element in listNumbers)  Console.WriteLine(element.Text);
 
             IWebElement gridMenu = webDriver.FindElement(By.Id("demo-tab-grid"));
             gridMenu.Click();
@@ -51,7 +51,7 @@ namespace AutomationProject.Session5
                 elementMapping[element.Text] = element;  // Store element reference by text
 
             }
-            Dictionary <string, int> textToNumber = new Dictionary<string, int>()
+            Dictionary<string, int> textToNumber = new Dictionary<string, int>()
             {
                 { "One", 1 }, { "Two", 2 }, { "Three", 3 },
                 { "Four", 4 }, { "Five", 5 }, { "Six", 6 },
@@ -65,11 +65,11 @@ namespace AutomationProject.Session5
                 int numB = textToNumber[b];
                 // If one is odd and the other is even, prioritize odd numbers
                 if (numA % 2 != numB % 2)
-                    return (numA % 2 == 0) ? 1 : -1;
+                    return numA % 2 == 0 ? 1 : -1;
                 // Otherwise, maintain natural order
                 return numA.CompareTo(numB);
             });
-            Console.WriteLine(string.Join(", ", elementsFromGridToText)); 
+            Console.WriteLine(string.Join(", ", elementsFromGridToText));
 
             // ** Drag and Drop **
             /* Actions actions = new Actions(webDriver);
@@ -89,7 +89,7 @@ namespace AutomationProject.Session5
         }
 
         [Test]
-        public void InteractionsMenuSelectable ()
+        public void InteractionsMenuSelectable()
         {
             webDriver = new ChromeDriver();
             webDriver.Navigate().GoToUrl("https://demoqa.com/");
@@ -108,9 +108,10 @@ namespace AutomationProject.Session5
             gridMenu.Click();
 
             List<IWebElement> listNumbersGrid = webDriver.FindElements(By.XPath("//div[@id='demo-tabpane-grid']//li[@class='list-group-item list-group-item-action']")).ToList();
-            for (int i = 0; i < listNumbersGrid.Count; i++) {
+            for (int i = 0; i < listNumbersGrid.Count; i++)
+            {
                 if (i % 2 == 0)
-                listNumbersGrid[i].Click(); 
+                    listNumbersGrid[i].Click();
             }
 
         }

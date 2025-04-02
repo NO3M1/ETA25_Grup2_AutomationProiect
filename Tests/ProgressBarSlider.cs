@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutomationProject.Session9
+namespace AutomationProject.Tests
 {
     public class ProgressBarSlider
     {
@@ -45,10 +45,10 @@ namespace AutomationProject.Session9
             startBtn.Click();
 
             Thread.Sleep(10000);
-            
+
             int progressValue = int.Parse(progressBar.GetAttribute("aria-valuenow"));
 
-            if(progressValue == 100)
+            if (progressValue == 100)
             {
                 Console.WriteLine("Progress bar is 100%");
                 IWebElement resetBtn = webDriver.FindElement(By.Id("resetButton"));
@@ -58,7 +58,7 @@ namespace AutomationProject.Session9
             listWidgets[3].Click();
 
             IWebElement sliderValue = webDriver.FindElement(By.Id("sliderValue"));
-            
+
             Console.WriteLine($"Initial slider value is: {sliderValue.GetAttribute("value")}");
 
             IWebElement slider = webDriver.FindElement(By.XPath("//input[@type='range']"));

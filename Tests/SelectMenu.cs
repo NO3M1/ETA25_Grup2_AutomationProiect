@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium.Support.UI;
 
-namespace AutomationProject.Session4
+namespace AutomationProject.Tests
 {
     public class SelectMenu
     {

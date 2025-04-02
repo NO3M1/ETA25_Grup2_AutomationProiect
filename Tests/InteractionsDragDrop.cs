@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutomationProject.Session9
+namespace AutomationProject.Tests
 {
     public class InteractionsDragDrop
     {
@@ -15,7 +15,7 @@ namespace AutomationProject.Session9
 
         [Test]
 
-        public void DragAndDrop ()
+        public void DragAndDrop()
         {
             webDriver = new ChromeDriver();
             webDriver.Navigate().GoToUrl("https://demoqa.com/");
@@ -100,7 +100,7 @@ namespace AutomationProject.Session9
         public void TearDown()
         {
             // webDriver.Close();
-           // webDriver.Dispose();
+            // webDriver.Dispose();
         }
     }
 }

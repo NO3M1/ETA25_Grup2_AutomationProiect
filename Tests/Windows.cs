@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutomationProject.Session6
+namespace AutomationProject.Tests
 {
     public class Windows
     {
@@ -50,7 +50,7 @@ namespace AutomationProject.Session6
         [TearDown]
         public void TearDown()
         {
-           // webDriver.Close();
+            // webDriver.Close();
             webDriver.Dispose();
         }
     }

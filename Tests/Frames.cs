@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutomationProject.Session6
+namespace AutomationProject.Tests
 {
     public class Frames
     {
@@ -33,7 +33,7 @@ namespace AutomationProject.Session6
             webDriver.SwitchTo().Frame(frame1);
 
             IWebElement textFrame1 = webDriver.FindElement(By.Id("sampleHeading"));
-            Console.WriteLine($"Text Frame 1 is: { textFrame1.Text}");
+            Console.WriteLine($"Text Frame 1 is: {textFrame1.Text}");
 
             webDriver.SwitchTo().DefaultContent();
             IWebElement frame2 = webDriver.FindElement(By.Id("frame2"));
@@ -58,10 +58,10 @@ namespace AutomationProject.Session6
 
             List<IWebElement> listFrames = webDriver.FindElements(By.XPath("//div[@class='element-list collapse show']//li[@class='btn btn-light ']")).ToList();
             listFrames[3].Click();
-            
+
             IWebElement parentFrame = webDriver.FindElement(By.Id("frame1"));
             webDriver.SwitchTo().Frame(parentFrame);
-            
+
             string bodyText = webDriver.FindElement(By.TagName("body")).Text;
             Console.WriteLine("Parent frame body text is: " + bodyText);
 
@@ -96,7 +96,7 @@ namespace AutomationProject.Session6
         public void TearDown()
         {
             //webDriver.Close();
-          //  webDriver.Dispose();
+            //  webDriver.Dispose();
         }
     }
 }
