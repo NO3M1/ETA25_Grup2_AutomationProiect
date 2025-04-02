@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using AutomationProject.HelperMethods;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using System;
@@ -12,6 +13,7 @@ namespace AutomationProject.Tests
     public class InteractionsDragDrop
     {
         IWebDriver webDriver;
+        ElementMethods elementMethods;
 
         [Test]
 
@@ -21,18 +23,20 @@ namespace AutomationProject.Tests
             webDriver.Navigate().GoToUrl("https://demoqa.com/");
             webDriver.Manage().Window.Maximize();
 
+            elementMethods = new ElementMethods(webDriver);
+
             IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
             IWebElement interactionsButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][5]")); // //h5[text()='Interactions']
-            interactionsButton.Click();
+            elementMethods.ClickOnElement(interactionsButton);
 
             jsExec.ExecuteScript("window.scrollTo(0,2000)");
             List<IWebElement> interactionsListItems = webDriver.FindElements(By.XPath("//div[@class='element-list collapse show']/ul[@class='menu-list']/li[@class='btn btn-light ']")).ToList();
-            interactionsListItems[3].Click();
+            elementMethods.ClickOnElement(interactionsListItems[3]);
 
             IWebElement preventPropogation = webDriver.FindElement(By.Id("droppableExample-tab-preventPropogation"));
-            preventPropogation.Click();
+            elementMethods.ClickOnElement(preventPropogation);
 
             IWebElement dragBox = webDriver.FindElement(By.Id("dragBox"));
 
@@ -100,7 +104,7 @@ namespace AutomationProject.Tests
         public void TearDown()
         {
             // webDriver.Close();
-            // webDriver.Dispose();
+             webDriver.Dispose();
         }
     }
 }

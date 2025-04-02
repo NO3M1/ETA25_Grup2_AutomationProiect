@@ -5,12 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutomationProject.HelperMethods;
 
 namespace AutomationProject.Tests
 {
     public class Frames
     {
         IWebDriver webDriver;
+        ElementMethods elementMethods;
 
         [Test]
         public void FramesInteractions()
@@ -19,14 +21,16 @@ namespace AutomationProject.Tests
             webDriver.Navigate().GoToUrl("https://demoqa.com/");
             webDriver.Manage().Window.Maximize();
 
+            elementMethods = new ElementMethods(webDriver);
+
             IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
             IWebElement framesButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][3]"));
-            framesButton.Click();
+            elementMethods.ClickOnElement(framesButton);
 
             List<IWebElement> listFrames = webDriver.FindElements(By.XPath("//div[@class='element-list collapse show']//li[@class='btn btn-light ']")).ToList();
-            listFrames[2].Click();
+            elementMethods.ClickOnElement(listFrames[2]);
 
             IWebElement frame1 = webDriver.FindElement(By.Id("frame1"));
 
@@ -50,14 +54,16 @@ namespace AutomationProject.Tests
             webDriver.Navigate().GoToUrl("https://demoqa.com/");
             webDriver.Manage().Window.Maximize();
 
+            elementMethods = new ElementMethods(webDriver);
+
             IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
             IWebElement alertsFramesButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][3]"));
-            alertsFramesButton.Click();
+            elementMethods.ClickOnElement(alertsFramesButton);
 
             List<IWebElement> listFrames = webDriver.FindElements(By.XPath("//div[@class='element-list collapse show']//li[@class='btn btn-light ']")).ToList();
-            listFrames[3].Click();
+            elementMethods.ClickOnElement(listFrames[3]);
 
             IWebElement parentFrame = webDriver.FindElement(By.Id("frame1"));
             webDriver.SwitchTo().Frame(parentFrame);
@@ -79,24 +85,26 @@ namespace AutomationProject.Tests
             webDriver.Navigate().GoToUrl("https://demoqa.com/");
             webDriver.Manage().Window.Maximize();
 
+            elementMethods = new ElementMethods(webDriver);
+
             IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
             IWebElement alertsFramesButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][3]"));
-            alertsFramesButton.Click();
+            elementMethods.ClickOnElement(alertsFramesButton);
 
             List<IWebElement> listFrames = webDriver.FindElements(By.XPath("//div[@class='element-list collapse show']//li[@class='btn btn-light ']")).ToList();
-            listFrames[4].Click();
+            elementMethods.ClickOnElement(listFrames[4]);
 
             IWebElement smallModal = webDriver.FindElement(By.Id("showSmallModal"));
-            smallModal.Click();
+            elementMethods.ClickOnElement(smallModal);
         }
 
         [TearDown]
         public void TearDown()
         {
             //webDriver.Close();
-            //  webDriver.Dispose();
+              webDriver.Dispose();
         }
     }
 }

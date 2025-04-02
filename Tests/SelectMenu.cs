@@ -6,12 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium.Support.UI;
+using AutomationProject.HelperMethods;
 
 namespace AutomationProject.Tests
 {
     public class SelectMenu
     {
         IWebDriver webDriver;
+        ElementMethods elementMethods;
 
         [Test]
         public void SelectMenuTest()
@@ -20,15 +22,17 @@ namespace AutomationProject.Tests
             webDriver.Navigate().GoToUrl("https://demoqa.com/");
             webDriver.Manage().Window.Maximize();
 
+            elementMethods = new ElementMethods(webDriver);
+
             IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
             IWebElement widgetsButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][4]"));
-            widgetsButton.Click();
+            elementMethods.ClickOnElement(widgetsButton);
 
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
             IWebElement selectMenu = webDriver.FindElement(By.XPath("//span[text()='Select Menu']"));
-            selectMenu.Click();
+            elementMethods.ClickOnElement(selectMenu);
 
             //make element selectable type
 

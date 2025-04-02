@@ -1,3 +1,4 @@
+using AutomationProject.HelperMethods;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
@@ -7,6 +8,7 @@ namespace AutomationProject.Tests
     {
 
         IWebDriver driver;
+        ElementMethods elementMethods;
 
         [Test]
         public void TextBoxMethod()
@@ -16,40 +18,42 @@ namespace AutomationProject.Tests
             driver.Navigate().GoToUrl("https://demoqa.com/");
             driver.Manage().Window.Maximize();
 
+            elementMethods = new ElementMethods(driver);
+
             IJavaScriptExecutor jsExec = (IJavaScriptExecutor)driver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
             IWebElement elementsButton = driver.FindElement(By.XPath("//h5[text()='Elements']"));
-            elementsButton.Click();
+            elementMethods.ClickOnElement(elementsButton);
 
             IWebElement elementTextBoxButton = driver.FindElement(By.XPath("//*[text()='Text Box']"));
-            elementTextBoxButton.Click();
+            elementMethods.ClickOnElement(elementTextBoxButton);
 
             IWebElement textBoxFullName = driver.FindElement(By.Id("userName"));
-            textBoxFullName.SendKeys("Nicoleta Loredana");
+            elementMethods.FillElement(textBoxFullName, "Nicoleta Loredana");
 
             IWebElement textBoxEmail = driver.FindElement(By.Id("userEmail"));
-            textBoxEmail.SendKeys("loredana@email.com");
+            elementMethods.FillElement(textBoxEmail, "loredana@email.com");
 
             IWebElement textBoxCurrentAddress = driver.FindElement(By.Id("currentAddress"));
-            textBoxCurrentAddress.SendKeys("Street no.15 \n Craiova City");
+            elementMethods.FillElement(textBoxCurrentAddress, "Street no.15 \n Craiova City");
 
             IWebElement textBoxPermanentAddress = driver.FindElement(By.Id("permanentAddress"));
-            textBoxPermanentAddress.SendKeys("Street no.15 bis\n Craiova City");
+            elementMethods.FillElement(textBoxPermanentAddress, "Street no.15 bis\n Craiova City");
 
             IWebElement buttonSubmit = driver.FindElement(By.Id("submit"));
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
-            buttonSubmit.Click();
+            elementMethods.ClickOnElement(buttonSubmit);
 
             IWebElement elementCheckBoxButon = driver.FindElement(By.XPath("//span[text()='Check Box']"));
-            elementCheckBoxButon.Click();
+            elementMethods.ClickOnElement(elementCheckBoxButon);
 
             IWebElement checkBoxExpandCollapse = driver.FindElement(By.XPath("//*[@id=\"tree-node\"]/ol/li/span/button"));
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
-            checkBoxExpandCollapse.Click();
+            elementMethods.ClickOnElement(checkBoxExpandCollapse);
 
             IWebElement checkBoxDesktop = driver.FindElement(By.XPath("//*[@id=\"tree-node\"]/ol/li/ol/li[1]/span/label/span[1]"));
-            checkBoxDesktop.Click();
+            elementMethods.ClickOnElement(checkBoxDesktop);
             bool checkBoxDesktopSelection = checkBoxDesktop.GetCssValue("svg").Contains("rct-icon rct-icon-uncheck");
             if (checkBoxDesktopSelection)
                 Console.WriteLine("Check Box is not checked");
@@ -61,7 +65,7 @@ namespace AutomationProject.Tests
         public void TearDown()
         {
             driver.Quit();
-            driver.Close();
+//            driver.Close();
         }
     }
 }

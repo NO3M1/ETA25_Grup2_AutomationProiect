@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using AutomationProject.HelperMethods;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace AutomationProject.Tests
     public class Windows
     {
         IWebDriver webDriver;
+        ElementMethods elementMethods;
 
         [Test]
         public void WindowsInteractions()
@@ -19,17 +21,19 @@ namespace AutomationProject.Tests
             webDriver.Navigate().GoToUrl("https://demoqa.com/");
             webDriver.Manage().Window.Maximize();
 
+            elementMethods = new ElementMethods(webDriver);
+
             IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
             IWebElement framesButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][3]"));
-            framesButton.Click();
+            elementMethods.ClickOnElement(framesButton);
 
             List<IWebElement> listFrames = webDriver.FindElements(By.XPath("//div[@class='element-list collapse show']//li[@class='btn btn-light ']")).ToList();
-            listFrames[0].Click();
+            elementMethods.ClickOnElement(listFrames[0]);
 
             IWebElement newTabButton = webDriver.FindElement(By.Id("tabButton"));
-            newTabButton.Click();
+            elementMethods.ClickOnElement(newTabButton);
 
             List<string> tabList = new List<string>(webDriver.WindowHandles);
             webDriver.SwitchTo().Window(tabList[1]);
@@ -41,7 +45,7 @@ namespace AutomationProject.Tests
             webDriver.SwitchTo().Window(tabList[0]);
 
             IWebElement newWindowButton = webDriver.FindElement(By.Id("windowButton"));
-            newWindowButton.Click();
+            elementMethods.ClickOnElement(newWindowButton);
             List<string> windowList = new List<string>(webDriver.WindowHandles);
             webDriver.SwitchTo().Window(windowList[1]);
             IWebElement textNewWindow = webDriver.FindElement(By.Id("sampleHeading"));

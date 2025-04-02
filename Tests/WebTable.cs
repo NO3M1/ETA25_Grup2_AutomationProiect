@@ -22,23 +22,21 @@ namespace AutomationProject.Tests
             webDriver.Manage().Window.Maximize();
 
             elementMethods = new ElementMethods(webDriver);
+
             IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
             IWebElement elementsButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][1]"));
-            elementsButton.Click();
+            elementMethods.ClickOnElement(elementsButton);
 
             IWebElement elementWebTables = webDriver.FindElement(By.XPath("//*[text()='Web Tables']"));
-            elementWebTables.Click();
+            elementMethods.ClickOnElement(elementWebTables);
 
             IWebElement addBtnWebTables = webDriver.FindElement(By.Id("addNewRecordButton"));
-            addBtnWebTables.Click();
+            elementMethods.ClickOnElement(addBtnWebTables);
 
             PopulateRegistrationForm(webDriver, "Loredana", "Penea", "loredana.penea@email.com", "36", "5500", "IT");
-            // IWebElement newRowTable = webDriver.FindElement(By.XPath("//div[@class='rt-tr-group'][4]"));
-            // IWebElement firstNameInTable = webDriver.FindElement(By.XPath("//div[@class='rt-tr-group'][4]//*[@class='rt-td'][1]"));
-            // IWebElement lastNameInTable = webDriver.FindElement(By.XPath("//div[@class='rt-tr-group'][4]//*[@class='rt-td'][2]"));
-
+            
             string firstNameInTable = GetColumnFromRow(4, 1);
             string lastNameInTable = GetColumnFromRow(4, 2);
             string emailInTable = GetColumnFromRow(4, 3);
@@ -52,7 +50,7 @@ namespace AutomationProject.Tests
                 Console.WriteLine($"Is true, last name is: {lastNameInTable}");
             }
 
-            addBtnWebTables.Click();
+            elementMethods.ClickOnElement(addBtnWebTables);
             PopulateRegistrationForm(webDriver, "Ionela", "Ionescu", "ionela.ionescu@email.com", "44", "6000", "Finance");
 
             firstNameInTable = GetColumnFromRow(5, 1);
@@ -85,13 +83,13 @@ namespace AutomationProject.Tests
             IWebElement registrationSubmitBtn = webDriver.FindElement(By.Id("submit"));
 
             elementMethods.FillElement(firstNameField, firstName);
-            lastNameField.SendKeys(lastName);
-            emailField.SendKeys(email);
-            ageField.SendKeys(age);
-            salaryField.SendKeys(salary);
-            departmentField.SendKeys(department);
+            elementMethods.FillElement(lastNameField, lastName);        
+            elementMethods.FillElement(emailField, email);
+            elementMethods.FillElement(ageField, age);
+            elementMethods.FillElement(salaryField, salary);
+            elementMethods.FillElement(departmentField, department);
 
-            registrationSubmitBtn.Click();
+            elementMethods.ClickOnElement(registrationSubmitBtn);
 
         }
 

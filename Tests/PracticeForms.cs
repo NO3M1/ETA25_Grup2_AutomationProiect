@@ -23,14 +23,16 @@ namespace AutomationProject.Tests
             webDriver.Navigate().GoToUrl("https://demoqa.com/");
             webDriver.Manage().Window.Maximize();
 
+            elementMethods = new ElementMethods(webDriver);
+
             IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
             IWebElement formsButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][2]"));
-            formsButton.Click();
+            elementMethods.ClickOnElement(formsButton);
 
             IWebElement elementPracticeForms = webDriver.FindElement(By.XPath("//*[text()='Practice Form']"));
-            elementPracticeForms.Click();
+            elementMethods.ClickOnElement(elementPracticeForms);
 
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
@@ -40,57 +42,43 @@ namespace AutomationProject.Tests
 
             string gender = "Male";
 
-            //if (gender.Equals("Male"))
-            //{
-            //    genderMale.Click();
-            //} else if (gender.Equals("Female"))
-            //{
-            //    genderFemale.Click();
-            //} else { 
-            //    genderOther.Click(); 
-            //}
-
             switch (gender)
             {
                 case "Male":
-                    genderMale.Click();
+                    elementMethods.ClickOnElement(genderMale);
                     break;
                 case "Female":
-                    genderFemale.Click();
+                    elementMethods.ClickOnElement(genderFemale);
                     break;
                 case "Other":
-                    genderOther.Click();
+                    elementMethods.ClickOnElement(genderOther);
                     break;
             }
 
             IWebElement elementSubjects = webDriver.FindElement(By.Id("subjectsInput"));
-            elementSubjects.SendKeys("English");
-            elementSubjects.SendKeys(Keys.Enter);
-            elementSubjects.SendKeys("C");
-            elementSubjects.SendKeys(Keys.ArrowDown);
-            elementSubjects.SendKeys(Keys.ArrowDown);
-            elementSubjects.SendKeys(Keys.ArrowDown);
-            elementSubjects.SendKeys(Keys.Enter);
+            elementMethods.FillElement(elementSubjects, "English");
+            elementMethods.FillElement(elementSubjects, Keys.Enter);
+            elementMethods.FillElement(elementSubjects, "C");
+            elementMethods.FillElement(elementSubjects, Keys.ArrowDown);
+            elementMethods.FillElement(elementSubjects, Keys.ArrowDown);
+            elementMethods.FillElement(elementSubjects, Keys.ArrowDown);
+            elementMethods.FillElement(elementSubjects, Keys.Enter);
 
             List<IWebElement> listRemoveSubjects = webDriver.FindElements(By.XPath("//div[@class='css-xb97g8 subjects-auto-complete__multi-value__remove']")).ToList();
             bool subjectFlag = true;
 
-            //te site will break if we remove all the elements in the list 
+            //the site will break if we remove all the elements in the list 
             //while (subjectFlag)
             //{
             //    foreach (IWebElement elementSubject in listRemoveSubjects)
             //        elementSubject.Click();
-
             //    subjectFlag = false;
             //}    
-
-            //IWebElement iconToRemove = webDriver.FindElement(By.XPath("(//div[contains(@class, 'subjects-auto-complete__multi-value__remove')])[2]"));
-            //iconToRemove.Click();
 
             //Date Picker
 
             IWebElement dateBirth = webDriver.FindElement(By.Id("dateOfBirthInput"));
-            dateBirth.Click();
+            elementMethods.ClickOnElement(dateBirth);
 
             IWebElement datePickerMonth = webDriver.FindElement(By.XPath("//select[@class='react-datepicker__month-select']"));
             SelectElement monthDropDown = new SelectElement(datePickerMonth);
@@ -102,8 +90,7 @@ namespace AutomationProject.Tests
 
             int day = 7;
             IWebElement datePickerDate = webDriver.FindElement(By.XPath("//*[@class='react-datepicker__day react-datepicker__day--026' and not (contains(@class, '--outside-month'))]"));
-            datePickerDate.Click();
-
+            elementMethods.ClickOnElement(datePickerDate);
 
         }
 

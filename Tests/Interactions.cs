@@ -7,12 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium.Interactions;
 using static System.Net.Mime.MediaTypeNames;
+using AutomationProject.HelperMethods;
 
 namespace AutomationProject.Tests
 {
     public class Interactions
     {
         IWebDriver webDriver;
+        ElementMethods elementMethod;
 
         [Test]
         public void InteractionsMenuSortable()
@@ -21,14 +23,16 @@ namespace AutomationProject.Tests
             webDriver.Navigate().GoToUrl("https://demoqa.com/");
             webDriver.Manage().Window.Maximize();
 
+            elementMethod = new ElementMethods(webDriver);
+
             IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
             IWebElement interactionsButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][5]")); // //h5[text()='Interactions']
-            interactionsButton.Click();
+            elementMethod.ClickOnElement(interactionsButton);
 
             List<IWebElement> interactionsListItems = webDriver.FindElements(By.XPath("//div[@class='element-list collapse show']/ul[@class='menu-list']/li[@class='btn btn-light ']")).ToList();
-            interactionsListItems[0].Click();
+            elementMethod.ClickOnElement(interactionsListItems[0]);
 
             List<IWebElement> listNumbers = webDriver.FindElements(By.XPath("//div[@class='vertical-list-container mt-4']/div")).ToList();
             // //div[@class='vertical-list-container mt-4']/div[@class='list-group-item list-group-item-action']
@@ -38,7 +42,7 @@ namespace AutomationProject.Tests
             // foreach (IWebElement element in listNumbers)  Console.WriteLine(element.Text);
 
             IWebElement gridMenu = webDriver.FindElement(By.Id("demo-tab-grid"));
-            gridMenu.Click();
+            elementMethod.ClickOnElement(gridMenu);
 
             List<IWebElement> listElementsGrid = webDriver.FindElements(By.XPath("//div[@id='demo-tabpane-grid']//div[@class='list-group-item list-group-item-action']")).ToList();
             List<string> elementsFromGridToText = new List<string>();
@@ -71,21 +75,6 @@ namespace AutomationProject.Tests
             });
             Console.WriteLine(string.Join(", ", elementsFromGridToText));
 
-            // ** Drag and Drop **
-            /* Actions actions = new Actions(webDriver);
-            foreach (var text in elementsFromGridToText)
-            {
-                int number = textToNumber[text];
-
-                if (number % 2 != 0)
-                {
-                    IWebElement sourceElement = elementMapping[text];
-                    IWebElement targetElement = webDriver.FindElement(By.XPath("//div[@id='demo-tabpane-grid']//div[@class='list-group-item list-group-item-action' and contains(text(), 'One')]")); 
-                    //Second element = two, will be in the same position and the sorting is not correct 
-                    Console.WriteLine($"Dragging {text} ...");
-                    actions.DragAndDrop(sourceElement, targetElement).Perform();
-                }
-            } */
         }
 
         [Test]
@@ -95,23 +84,25 @@ namespace AutomationProject.Tests
             webDriver.Navigate().GoToUrl("https://demoqa.com/");
             webDriver.Manage().Window.Maximize();
 
+            elementMethod = new ElementMethods(webDriver);
+
             IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
             IWebElement interactionsButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][5]")); // //h5[text()='Interactions']
-            interactionsButton.Click();
+            elementMethod.ClickOnElement(interactionsButton);
 
             List<IWebElement> interactionsListItems = webDriver.FindElements(By.XPath("//div[@class='element-list collapse show']/ul[@class='menu-list']/li[@class='btn btn-light ']")).ToList();
-            interactionsListItems[1].Click();
+            elementMethod.ClickOnElement(interactionsListItems[1]);
 
             IWebElement gridMenu = webDriver.FindElement(By.Id("demo-tab-grid"));
-            gridMenu.Click();
+            elementMethod.ClickOnElement(gridMenu);
 
             List<IWebElement> listNumbersGrid = webDriver.FindElements(By.XPath("//div[@id='demo-tabpane-grid']//li[@class='list-group-item list-group-item-action']")).ToList();
             for (int i = 0; i < listNumbersGrid.Count; i++)
             {
                 if (i % 2 == 0)
-                    listNumbersGrid[i].Click();
+                    elementMethod.ClickOnElement(listNumbersGrid[i]);
             }
 
         }
@@ -119,7 +110,7 @@ namespace AutomationProject.Tests
         [TearDown]
         public void TearDown()
         {
-            //webDriver.Close();
+            webDriver.Close();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using AutomationProject.HelperMethods;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using System;
@@ -12,6 +13,7 @@ namespace AutomationProject.Tests
     public class ProgressBarSlider
     {
         IWebDriver webDriver;
+        ElementMethods elementMethods;
 
         [Test]
 
@@ -21,28 +23,30 @@ namespace AutomationProject.Tests
             webDriver.Navigate().GoToUrl("https://demoqa.com/");
             webDriver.Manage().Window.Maximize();
 
+            elementMethods = new ElementMethods(webDriver);
+
             IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
             IWebElement widgetsButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][4]"));
-            widgetsButton.Click();
+            elementMethods.ClickOnElement(widgetsButton);
 
             List<IWebElement> listWidgets = webDriver.FindElements(By.XPath("//div[@class='element-list collapse show']//li[@class='btn btn-light ']")).ToList();
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
-            listWidgets[4].Click();
+            elementMethods.ClickOnElement(listWidgets[4]);
 
             IWebElement startBtn = webDriver.FindElement(By.Id("startStopButton"));
-            startBtn.Click();
+            elementMethods.ClickOnElement(startBtn);
 
             Thread.Sleep(3000); //wait  for 3 seconds
 
-            startBtn.Click(); //stop
+            elementMethods.ClickOnElement(startBtn); //stop
 
             IWebElement progressBar = webDriver.FindElement(By.XPath("//div[@class='progress']//div[@role='progressbar']"));
 
             Console.WriteLine($"Progress stopped at: {progressBar.GetAttribute("aria-valuenow")}%");
 
-            startBtn.Click();
+            elementMethods.ClickOnElement(startBtn);
 
             Thread.Sleep(10000);
 
@@ -52,10 +56,10 @@ namespace AutomationProject.Tests
             {
                 Console.WriteLine("Progress bar is 100%");
                 IWebElement resetBtn = webDriver.FindElement(By.Id("resetButton"));
-                resetBtn.Click();
+                elementMethods.ClickOnElement(resetBtn);
             }
 
-            listWidgets[3].Click();
+            elementMethods.ClickOnElement(listWidgets[3]);
 
             IWebElement sliderValue = webDriver.FindElement(By.Id("sliderValue"));
 

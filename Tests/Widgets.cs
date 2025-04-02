@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using AutomationProject.HelperMethods;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using System;
@@ -12,6 +13,7 @@ namespace AutomationProject.Tests
     public class Widgets
     {
         IWebDriver webDriver;
+        ElementMethods elementMethods;
 
         [Test]
 
@@ -21,26 +23,28 @@ namespace AutomationProject.Tests
             webDriver.Navigate().GoToUrl("https://demoqa.com/");
             webDriver.Manage().Window.Maximize();
 
+            elementMethods = new ElementMethods(webDriver); 
+
             IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
             IWebElement widgetsButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][4]"));
-            widgetsButton.Click();
+            elementMethods.ClickOnElement(widgetsButton);
 
             webDriver.FindElement(By.XPath("//*[text()='Auto Complete']")).Click();
 
             IWebElement multipleColor = webDriver.FindElement(By.Id("autoCompleteMultipleInput"));
-            multipleColor.Click();
-            multipleColor.SendKeys("Blue");
-            multipleColor.SendKeys(Keys.Enter);
-            multipleColor.SendKeys("i");
-            multipleColor.SendKeys(Keys.ArrowDown);
-            multipleColor.SendKeys(Keys.ArrowDown);
-            multipleColor.SendKeys(Keys.Enter);
+            elementMethods.ClickOnElement(multipleColor);
+            elementMethods.FillElement(multipleColor, "Blue");
+            elementMethods.FillElement(multipleColor, Keys.Enter);
+            elementMethods.FillElement(multipleColor, "i");
+            elementMethods.FillElement(multipleColor, Keys.ArrowDown);
+            elementMethods.FillElement(multipleColor, Keys.ArrowDown);
+            elementMethods.FillElement(multipleColor, Keys.Enter);
             IWebElement singleColor = webDriver.FindElement(By.Id("autoCompleteSingleInput"));
-            singleColor.Click();
-            singleColor.SendKeys("magenta");
-            singleColor.SendKeys(Keys.Enter);
+            elementMethods.ClickOnElement(singleColor);
+            elementMethods.FillElement(singleColor, "magenta");
+            elementMethods.FillElement(singleColor, Keys.Enter);
 
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
             webDriver.FindElement(By.XPath("//*[text()='Select Menu']")).Click();
@@ -48,15 +52,15 @@ namespace AutomationProject.Tests
             IWebElement optionDropDown = webDriver.FindElement(By.Id("react-select-4-input"));
             IWebElement optionDropDownArrow = webDriver.FindElement(By.XPath("//*[@class=' css-tlfecz-indicatorContainer'][1]")); // By.XPath(//div[@id='withOptGroup']//*[@class=' css-tlfecz-indicatorContainer']);
 
-            optionDropDownArrow.Click();
-            optionDropDown.SendKeys(Keys.ArrowDown);
-            optionDropDown.SendKeys(Keys.ArrowDown);
-            optionDropDown.SendKeys(Keys.Enter);
+            elementMethods.ClickOnElement(optionDropDownArrow);
+            elementMethods.FillElement(optionDropDown, Keys.ArrowDown);
+            elementMethods.FillElement(optionDropDown, Keys.ArrowDown);
+            elementMethods.FillElement(optionDropDown, Keys.Enter);
 
             Actions actions = new Actions(webDriver);
             IWebElement titleDropDownArrow = webDriver.FindElement(By.XPath("//div[@id='selectOne']")); //(By.XPath("//div[@id='selectOne']//*[@class=' css-tlfecz-indicatorContainer']"));
 
-            titleDropDownArrow.Click();
+            elementMethods.ClickOnElement(titleDropDownArrow);
             actions.SendKeys("Mr." + Keys.Enter)
                 .Build()
                 .Perform();
