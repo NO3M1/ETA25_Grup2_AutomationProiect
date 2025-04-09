@@ -25,6 +25,14 @@ namespace AutomationProject.HelperMethods
         {
             element.SendKeys(text);
         }
-            
+        
+        public void SelectElementFromListByText(IList<IWebElement> elementsList, string text)
+        {
+            foreach (IWebElement element in elementsList)
+            {
+                if (element.Text == text)
+                    ClickOnElement(element);
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutomationProject.HelperMethods;
+using AutomationProject.Pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
@@ -14,6 +15,8 @@ namespace AutomationProject.Tests
     {
         IWebDriver webDriver;
         ElementMethods elementMethods;
+        HomePage homePage;
+        CommonPage commonPage;
 
         [Test]
 
@@ -24,15 +27,15 @@ namespace AutomationProject.Tests
             webDriver.Manage().Window.Maximize();
 
             elementMethods = new ElementMethods(webDriver);
+            homePage = new HomePage(webDriver);
+            commonPage = new CommonPage(webDriver);
 
             IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
-            IWebElement formsButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][2]"));
-            elementMethods.ClickOnElement(formsButton);
+            homePage.ClickOnFormsElement();
 
-            IWebElement elementPracticeForms = webDriver.FindElement(By.XPath("//*[text()='Practice Form']"));
-            elementMethods.ClickOnElement(elementPracticeForms);
+            commonPage.GoToMenu("Practice Form");
 
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
