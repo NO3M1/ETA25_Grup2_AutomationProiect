@@ -112,6 +112,7 @@ namespace AutomationProject.Tests
             IWebElement formsButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][2]"));
             elementMethods.ClickOnElement(formsButton);
 
+
             IWebElement elementPracticeForms = webDriver.FindElement(By.XPath("//*[text()='Practice Form']"));
             elementMethods.ClickOnElement(elementPracticeForms);
 

@@ -21,6 +21,7 @@ namespace AutomationProject.Tests
             webDriver.Navigate().GoToUrl("https://demoqa.com/");
             webDriver.Manage().Window.Maximize();
 
+            //initializam
             elementMethods = new ElementMethods(webDriver);
 
             IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
@@ -35,7 +36,7 @@ namespace AutomationProject.Tests
             IWebElement addBtnWebTables = webDriver.FindElement(By.Id("addNewRecordButton"));
             elementMethods.ClickOnElement(addBtnWebTables);
 
-            PopulateRegistrationForm(webDriver, "Loredana", "Penea", "loredana.penea@email.com", "36", "5500", "IT");
+            PopulateRegistrationForm(webDriver, "Noemi", "Sz", "test@email.com", "36", "5500", "IT");
             
             string firstNameInTable = GetColumnFromRow(4, 1);
             string lastNameInTable = GetColumnFromRow(4, 2);
@@ -44,14 +45,14 @@ namespace AutomationProject.Tests
             string salaryInTable = GetColumnFromRow(4, 5);
             string departamentInTable = GetColumnFromRow(4, 6);
 
-            Assert.That(firstNameInTable.Equals("Loredana"));
-            if (lastNameInTable.Equals("Penea"))
+            Assert.That(firstNameInTable.Equals("Noemi"));
+            if (lastNameInTable.Equals("Sz"))
             {
                 Console.WriteLine($"Is true, last name is: {lastNameInTable}");
             }
 
             elementMethods.ClickOnElement(addBtnWebTables);
-            PopulateRegistrationForm(webDriver, "Ionela", "Ionescu", "ionela.ionescu@email.com", "44", "6000", "Finance");
+            PopulateRegistrationForm(webDriver, "Noemi", "Sz", "test@email.com", "44", "6000", "Finance");
 
             firstNameInTable = GetColumnFromRow(5, 1);
             lastNameInTable = GetColumnFromRow(5, 2);
@@ -103,3 +104,4 @@ namespace AutomationProject.Tests
 
 
 }
+

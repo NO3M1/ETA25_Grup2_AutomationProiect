@@ -8,14 +8,18 @@ using System.Threading.Tasks;
 namespace AutomationProject.HelperMethods
 {
     public class ElementMethods
-    {
+
+    {   //initializam driver
         IWebDriver Driver;
 
+        //constructor
         public ElementMethods(IWebDriver driver) 
         {
             Driver = driver;
-        }
+            //tris.Driver = driver;
+        } 
 
+        //metode
         public void ClickOnElement(IWebElement element)
         {
             element.Click();
