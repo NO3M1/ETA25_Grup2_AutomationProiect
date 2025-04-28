@@ -1,1 +1,1 @@
-# ETA25_Grup2_AutomationProiect
+# ETA25 Intermediate C# Grup2
