@@ -29,7 +29,8 @@ namespace AutomationProject.HelperMethods
         {
             element.SendKeys(text);
         }
-        
+
+        //parcurge lista mea si daca gaseste Text-ul meu (de ex.Widgets) da click pe el
         public void SelectElementFromListByText(IList<IWebElement> elementsList, string text)
         {
             foreach (IWebElement element in elementsList)

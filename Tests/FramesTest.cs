@@ -6,13 +6,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutomationProject.HelperMethods;
+using AutomationProject.Pages;
+using Grup2_AutomationProject.NET.Pages;
+using Grup2_AutomationProject.NET.HelperMethods;
 
 namespace AutomationProject.Tests
 {
-    public class Frames
+    public class FramesTest
     {
         IWebDriver webDriver;
         ElementMethods elementMethods;
+        HomePage homePage;
+        CommonPage commonPage;
+        FramesPage framesPage;
+        JavascriptMethod jsMethods;
+
+        
 
         [Test]
         public void FramesInteractions()
@@ -22,11 +31,28 @@ namespace AutomationProject.Tests
             webDriver.Manage().Window.Maximize();
 
             elementMethods = new ElementMethods(webDriver);
+            homePage = new HomePage(webDriver);
+            commonPage = new CommonPage(webDriver);
+            framesPage = new FramesPage(webDriver);
+            
+            homePage.ClickOnAlertsFrameElement();
+            commonPage.GoToMenu("Frames");
 
+            framesPage.GetTextFromFrame1();
+
+            //revenim la main content
+            webDriver.SwitchTo().DefaultContent();
+
+            framesPage.GetTextFromFrame2();
+
+
+/*          OLD CODE 
+ *           
             IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
-            IWebElement framesButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][3]"));
+            //IWebElement framesButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][3]"));
+            IWebElement framesButton = webDriver.FindElement(By.Id("item-2"));
             elementMethods.ClickOnElement(framesButton);
 
             List<IWebElement> listFrames = webDriver.FindElements(By.XPath("//div[@class='element-list collapse show']//li[@class='btn btn-light ']")).ToList();
@@ -44,9 +70,10 @@ namespace AutomationProject.Tests
             webDriver.SwitchTo().Frame(frame2);
 
             IWebElement textFrame2 = webDriver.FindElement(By.Id("sampleHeading"));
-            Console.WriteLine($"Text Frame 2 is: {textFrame2.Text}");
+            Console.WriteLine($"Text Frame 2 is: {textFrame2.Text}");*/
 
         }
+
         [Test]
         public void NestedFrames()
         {
@@ -99,6 +126,10 @@ namespace AutomationProject.Tests
             IWebElement smallModal = webDriver.FindElement(By.Id("showSmallModal"));
             elementMethods.ClickOnElement(smallModal);
         }
+
+          
+ 
+
 
         [TearDown]
         public void TearDown()

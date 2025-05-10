@@ -4,7 +4,7 @@ using OpenQA.Selenium.Chrome;
 
 namespace AutomationProject.Tests
 {
-    public class TextBoxTest
+   /* public class TextBoxTest
     {
 
         IWebDriver driver;
@@ -67,5 +67,5 @@ namespace AutomationProject.Tests
             driver.Quit();
 //            driver.Close();
         }
-    }
+    }*/
 }

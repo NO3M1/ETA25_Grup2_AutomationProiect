@@ -1,5 +1,6 @@
 ﻿using AutomationProject.HelperMethods;
 using AutomationProject.Pages;
+using Grup2_AutomationProject.NET.Pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
@@ -11,12 +12,13 @@ using System.Threading.Tasks;
 
 namespace AutomationProject.Tests
 {
-    public class PracticeForms
+    public class PracticeFormsTest
     {
         IWebDriver webDriver;
         ElementMethods elementMethods;
         HomePage homePage;
         CommonPage commonPage;
+        PracticeFormPage practiceForm;
 
         [Test]
 
@@ -29,6 +31,7 @@ namespace AutomationProject.Tests
             elementMethods = new ElementMethods(webDriver);
             homePage = new HomePage(webDriver);
             commonPage = new CommonPage(webDriver);
+            var practiceFormPage = new PracticeFormPage(webDriver);
 
             IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
@@ -39,7 +42,13 @@ namespace AutomationProject.Tests
 
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
-            IWebElement genderMale = webDriver.FindElement(By.XPath("//label[@for='gender-radio-1']"));
+            practiceFormPage.CompleteFirstRegion("Noemi", "sz", "test@test.com", "07589558", "address1");
+            practiceFormPage.SelectGender("Male");
+
+
+
+
+            /*IWebElement genderMale = webDriver.FindElement(By.XPath("//label[@for='gender-radio-1']"));
             IWebElement genderFemale = webDriver.FindElement(By.XPath("//label[@for='gender-radio-2']"));
             IWebElement genderOther = webDriver.FindElement(By.XPath("//label[@for='gender-radio-3']"));
 
@@ -56,7 +65,7 @@ namespace AutomationProject.Tests
                 case "Other":
                     elementMethods.ClickOnElement(genderOther);
                     break;
-            }
+            }*/
 
             IWebElement elementSubjects = webDriver.FindElement(By.Id("subjectsInput"));
             elementMethods.FillElement(elementSubjects, "English");
@@ -98,7 +107,7 @@ namespace AutomationProject.Tests
         }
 
         [Test]
-        public void FormsHobbies()
+        /*public void FormsHobbies()
         {
             webDriver = new ChromeDriver();
             webDriver.Navigate().GoToUrl("https://demoqa.com/");
@@ -136,7 +145,7 @@ namespace AutomationProject.Tests
             }
 
 
-        }
+        }*/
 
         [TearDown]
         public void TearDown()
@@ -144,5 +153,7 @@ namespace AutomationProject.Tests
             // webDriver.Quit();
             webDriver.Close();
         }
+
     }
 }
+

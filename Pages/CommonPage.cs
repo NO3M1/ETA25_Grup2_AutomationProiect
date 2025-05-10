@@ -12,16 +12,20 @@ namespace AutomationProject.Pages
     {
         public IWebDriver webDriver;
         public ElementMethods elementMethods;
-        public CommonPage(IWebDriver webDriver) 
-        { 
+
+
+        public CommonPage(IWebDriver webDriver)
+        {
             this.webDriver = webDriver;
             elementMethods = new ElementMethods(webDriver);
         }
 
+        //parcurge lista mea si daca gaseste Text-ul meu (de ex.Widgets) da click pe el
         List<IWebElement> elementsList => webDriver.FindElements(By.XPath("//span[@class='text']")).ToList();
         public void GoToMenu(string menuItem)
         {
             elementMethods.SelectElementFromListByText(elementsList, menuItem);
         }
+
     }
 }
