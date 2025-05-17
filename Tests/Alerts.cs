@@ -8,68 +8,62 @@ using System.Threading.Tasks;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using AutomationProject.HelperMethods;
+using Grup2_AutomationProject.NET.BasePage;
 
 namespace AutomationProject.Tests
 {
-    public class Alerts
+    public class Alerts : TestBasePage
     {
-        IWebDriver webDriver;
+     
         ElementMethods elementMethods;
 
         [Test]
         public void AlertsInteractions()
         {
-            webDriver = new ChromeDriver();
-            webDriver.Navigate().GoToUrl("https://demoqa.com/");
-            webDriver.Manage().Window.Maximize();
+       
 
-            elementMethods = new ElementMethods(webDriver);
+            elementMethods = new ElementMethods(driver);
 
-            IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
+            IJavaScriptExecutor jsExec = (IJavaScriptExecutor)driver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
-            IWebElement alertsButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][3]"));
+            IWebElement alertsButton = driver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][3]"));
             elementMethods.ClickOnElement(alertsButton);
 
-            List<IWebElement> listItems = webDriver.FindElements(By.XPath("//div[@class='element-list collapse show']//li[@class='btn btn-light ']")).ToList();
+            List<IWebElement> listItems = driver.FindElements(By.XPath("//div[@class='element-list collapse show']//li[@class='btn btn-light ']")).ToList();
             elementMethods.ClickOnElement(listItems[1]);
 
-            IWebElement alertButton1 = webDriver.FindElement(By.Id("alertButton"));
+            IWebElement alertButton1 = driver.FindElement(By.Id("alertButton"));
             elementMethods.ClickOnElement(alertButton1);
 
-            IAlert alertOK = webDriver.SwitchTo().Alert();
+            IAlert alertOK = driver.SwitchTo().Alert();
             alertOK.Accept();
 
-            IWebElement alertButton2 = webDriver.FindElement(By.Id("timerAlertButton"));
+            IWebElement alertButton2 = driver.FindElement(By.Id("timerAlertButton"));
             elementMethods.ClickOnElement(alertButton2);
 
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(7));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(7));
             wait.Until(ExpectedConditions.AlertIsPresent());
 
-            IAlert alertDelay = webDriver.SwitchTo().Alert();
+            IAlert alertDelay = driver.SwitchTo().Alert();
             alertDelay.Accept();
 
-            IWebElement alertButton3 = webDriver.FindElement(By.Id("confirmButton"));
+            IWebElement alertButton3 = driver.FindElement(By.Id("confirmButton"));
             elementMethods.ClickOnElement(alertButton3);
 
-            IAlert alertConfirm = webDriver.SwitchTo().Alert();
+            IAlert alertConfirm = driver.SwitchTo().Alert();
             alertConfirm.Dismiss();
 
-            IWebElement alertButton4 = webDriver.FindElement(By.Id("promtButton"));
+            IWebElement alertButton4 = driver.FindElement(By.Id("promtButton"));
             elementMethods.ClickOnElement(alertButton4);
 
-            IAlert alertprompt = webDriver.SwitchTo().Alert();
+            IAlert alertprompt = driver.SwitchTo().Alert();
             alertprompt.SendKeys("test alerts");
             //elementMethods.FillElement(alertprompt, "Test Alerts");
             alertprompt.Accept();
 
 
         }
-        [TearDown]
-        public void TearDown()
-        {
-            // driver.Close();
-            webDriver.Dispose();
-        }
+     
     }
 }

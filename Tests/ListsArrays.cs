@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Grup2_AutomationProject.NET.BasePage;
 
 namespace AutomationProject.Tests
 {
-    public class ListsArrays
+    public class ListsArrays 
     {
         [Test]
         public void TestList_Arrays()

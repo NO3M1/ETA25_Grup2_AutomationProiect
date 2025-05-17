@@ -1,4 +1,5 @@
 ﻿using AutomationProject.HelperMethods;
+using Grup2_AutomationProject.NET.BasePage;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
@@ -10,39 +11,37 @@ using System.Threading.Tasks;
 
 namespace AutomationProject.Tests
 {
-    public class ProgressBarSlider
+    public class ProgressBarSlider : TestBasePage
     {
-        IWebDriver webDriver;
+  
         ElementMethods elementMethods;
 
         [Test]
 
         public void ProgressBar()
         {
-            webDriver = new ChromeDriver();
-            webDriver.Navigate().GoToUrl("https://demoqa.com/");
-            webDriver.Manage().Window.Maximize();
+            
 
-            elementMethods = new ElementMethods(webDriver);
+            elementMethods = new ElementMethods(driver);
 
-            IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
+            IJavaScriptExecutor jsExec = (IJavaScriptExecutor)driver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
-            IWebElement widgetsButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][4]"));
+            IWebElement widgetsButton = driver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][4]"));
             elementMethods.ClickOnElement(widgetsButton);
 
-            List<IWebElement> listWidgets = webDriver.FindElements(By.XPath("//div[@class='element-list collapse show']//li[@class='btn btn-light ']")).ToList();
+            List<IWebElement> listWidgets = driver.FindElements(By.XPath("//div[@class='element-list collapse show']//li[@class='btn btn-light ']")).ToList();
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
             elementMethods.ClickOnElement(listWidgets[4]);
 
-            IWebElement startBtn = webDriver.FindElement(By.Id("startStopButton"));
+            IWebElement startBtn = driver.FindElement(By.Id("startStopButton"));
             elementMethods.ClickOnElement(startBtn);
 
             Thread.Sleep(3000); //wait  for 3 seconds
 
             elementMethods.ClickOnElement(startBtn); //stop
 
-            IWebElement progressBar = webDriver.FindElement(By.XPath("//div[@class='progress']//div[@role='progressbar']"));
+            IWebElement progressBar = driver.FindElement(By.XPath("//div[@class='progress']//div[@role='progressbar']"));
 
             Console.WriteLine($"Progress stopped at: {progressBar.GetAttribute("aria-valuenow")}%");
 
@@ -55,20 +54,20 @@ namespace AutomationProject.Tests
             if (progressValue == 100)
             {
                 Console.WriteLine("Progress bar is 100%");
-                IWebElement resetBtn = webDriver.FindElement(By.Id("resetButton"));
+                IWebElement resetBtn = driver.FindElement(By.Id("resetButton"));
                 elementMethods.ClickOnElement(resetBtn);
             }
 
             elementMethods.ClickOnElement(listWidgets[3]);
 
-            IWebElement sliderValue = webDriver.FindElement(By.Id("sliderValue"));
+            IWebElement sliderValue = driver.FindElement(By.Id("sliderValue"));
 
             Console.WriteLine($"Initial slider value is: {sliderValue.GetAttribute("value")}");
 
-            IWebElement slider = webDriver.FindElement(By.XPath("//input[@type='range']"));
+            IWebElement slider = driver.FindElement(By.XPath("//input[@type='range']"));
 
             // Move the slider using Actions class
-            Actions actions = new Actions(webDriver);
+            Actions actions = new Actions(driver);
             actions.ClickAndHold(slider)
                    .MoveByOffset(30, 0) // Move the slider to the right
                    .Release()
@@ -87,11 +86,6 @@ namespace AutomationProject.Tests
 
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            // driver.Close();
-            webDriver.Dispose();
-        }
+     
     }
 }

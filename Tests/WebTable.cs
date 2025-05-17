@@ -4,39 +4,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutomationProject.HelperMethods;
+using Grup2_AutomationProject.NET.BasePage;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
 namespace AutomationProject.Tests
 {
-    public class WebTable
+    public class WebTable : TestBasePage
     {
-        IWebDriver webDriver;
+        
         ElementMethods elementMethods;
 
         [Test]
         public void WebTableMethod()
         {
-            webDriver = new ChromeDriver();
-            webDriver.Navigate().GoToUrl("https://demoqa.com/");
-            webDriver.Manage().Window.Maximize();
+         
 
             //initializam
-            elementMethods = new ElementMethods(webDriver);
+            elementMethods = new ElementMethods(driver);
 
-            IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
+            IJavaScriptExecutor jsExec = (IJavaScriptExecutor)driver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
-            IWebElement elementsButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][1]"));
+            IWebElement elementsButton = driver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][1]"));
             elementMethods.ClickOnElement(elementsButton);
 
-            IWebElement elementWebTables = webDriver.FindElement(By.XPath("//*[text()='Web Tables']"));
+            IWebElement elementWebTables = driver.FindElement(By.XPath("//*[text()='Web Tables']"));
             elementMethods.ClickOnElement(elementWebTables);
 
-            IWebElement addBtnWebTables = webDriver.FindElement(By.Id("addNewRecordButton"));
+            IWebElement addBtnWebTables = driver.FindElement(By.Id("addNewRecordButton"));
             elementMethods.ClickOnElement(addBtnWebTables);
 
-            PopulateRegistrationForm(webDriver, "Noemi", "Sz", "test@email.com", "36", "5500", "IT");
+            PopulateRegistrationForm(driver, "Noemi", "Sz", "test@email.com", "36", "5500", "IT");
             
             string firstNameInTable = GetColumnFromRow(4, 1);
             string lastNameInTable = GetColumnFromRow(4, 2);
@@ -52,7 +51,7 @@ namespace AutomationProject.Tests
             }
 
             elementMethods.ClickOnElement(addBtnWebTables);
-            PopulateRegistrationForm(webDriver, "Noemi", "Sz", "test@email.com", "44", "6000", "Finance");
+            PopulateRegistrationForm(driver, "Noemi", "Sz", "test@email.com", "44", "6000", "Finance");
 
             firstNameInTable = GetColumnFromRow(5, 1);
             lastNameInTable = GetColumnFromRow(5, 2);
@@ -66,7 +65,7 @@ namespace AutomationProject.Tests
         }
         public string GetColumnFromRow(int rowIndex, int columnIndex)
         {
-            IWebElement row = webDriver.FindElement(By.XPath($"//div[@class='rt-tr-group'][{rowIndex}]"));
+            IWebElement row = driver.FindElement(By.XPath($"//div[@class='rt-tr-group'][{rowIndex}]"));
             IWebElement column = row.FindElement(By.XPath($".//div[@class='rt-td'][{columnIndex}]"));
 
             return column.Text;
@@ -81,7 +80,7 @@ namespace AutomationProject.Tests
             IWebElement ageField = driver.FindElement(By.Id("age"));
             IWebElement salaryField = driver.FindElement(By.Id("salary"));
             IWebElement departmentField = driver.FindElement(By.Id("department"));
-            IWebElement registrationSubmitBtn = webDriver.FindElement(By.Id("submit"));
+            IWebElement registrationSubmitBtn = driver.FindElement(By.Id("submit"));
 
             elementMethods.FillElement(firstNameField, firstName);
             elementMethods.FillElement(lastNameField, lastName);        
@@ -94,12 +93,6 @@ namespace AutomationProject.Tests
 
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            // driver.Quit();
-            webDriver.Close();
-        }
     }
 
 

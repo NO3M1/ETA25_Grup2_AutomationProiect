@@ -1,5 +1,6 @@
 ﻿using AutomationProject.HelperMethods;
 using AutomationProject.Pages;
+using Grup2_AutomationProject.NET.BasePage;
 using Grup2_AutomationProject.NET.Pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -12,9 +13,9 @@ using System.Threading.Tasks;
 
 namespace AutomationProject.Tests
 {
-    public class PracticeFormsTest
+    public class PracticeFormsTest : TestBasePage
     {
-        IWebDriver webDriver;
+
         ElementMethods elementMethods;
         HomePage homePage;
         CommonPage commonPage;
@@ -24,16 +25,14 @@ namespace AutomationProject.Tests
 
         public void FormsMethod()
         {
-            webDriver = new ChromeDriver();
-            webDriver.Navigate().GoToUrl("https://demoqa.com/");
-            webDriver.Manage().Window.Maximize();
 
-            elementMethods = new ElementMethods(webDriver);
-            homePage = new HomePage(webDriver);
-            commonPage = new CommonPage(webDriver);
-            var practiceFormPage = new PracticeFormPage(webDriver);
 
-            IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
+            elementMethods = new ElementMethods(driver);
+            homePage = new HomePage(driver);
+            commonPage = new CommonPage(driver);
+            var practiceFormPage = new PracticeFormPage(driver);
+
+            IJavaScriptExecutor jsExec = (IJavaScriptExecutor)driver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
             homePage.ClickOnFormsElement();
@@ -67,7 +66,7 @@ namespace AutomationProject.Tests
                     break;
             }*/
 
-            IWebElement elementSubjects = webDriver.FindElement(By.Id("subjectsInput"));
+            IWebElement elementSubjects = driver.FindElement(By.Id("subjectsInput"));
             elementMethods.FillElement(elementSubjects, "English");
             elementMethods.FillElement(elementSubjects, Keys.Enter);
             elementMethods.FillElement(elementSubjects, "C");
@@ -76,7 +75,7 @@ namespace AutomationProject.Tests
             elementMethods.FillElement(elementSubjects, Keys.ArrowDown);
             elementMethods.FillElement(elementSubjects, Keys.Enter);
 
-            List<IWebElement> listRemoveSubjects = webDriver.FindElements(By.XPath("//div[@class='css-xb97g8 subjects-auto-complete__multi-value__remove']")).ToList();
+            List<IWebElement> listRemoveSubjects = driver.FindElements(By.XPath("//div[@class='css-xb97g8 subjects-auto-complete__multi-value__remove']")).ToList();
             bool subjectFlag = true;
 
             //the site will break if we remove all the elements in the list 
@@ -89,24 +88,24 @@ namespace AutomationProject.Tests
 
             //Date Picker
 
-            IWebElement dateBirth = webDriver.FindElement(By.Id("dateOfBirthInput"));
+            IWebElement dateBirth = driver.FindElement(By.Id("dateOfBirthInput"));
             elementMethods.ClickOnElement(dateBirth);
 
-            IWebElement datePickerMonth = webDriver.FindElement(By.XPath("//select[@class='react-datepicker__month-select']"));
+            IWebElement datePickerMonth = driver.FindElement(By.XPath("//select[@class='react-datepicker__month-select']"));
             SelectElement monthDropDown = new SelectElement(datePickerMonth);
             monthDropDown.SelectByValue("1");
 
-            IWebElement datePickerYear = webDriver.FindElement(By.XPath("//select[@class='react-datepicker__year-select']"));
+            IWebElement datePickerYear = driver.FindElement(By.XPath("//select[@class='react-datepicker__year-select']"));
             SelectElement yearDropDown = new SelectElement(datePickerYear);
             yearDropDown.SelectByValue("1990");
 
             int day = 7;
-            IWebElement datePickerDate = webDriver.FindElement(By.XPath("//*[@class='react-datepicker__day react-datepicker__day--026' and not (contains(@class, '--outside-month'))]"));
+            IWebElement datePickerDate = driver.FindElement(By.XPath("//*[@class='react-datepicker__day react-datepicker__day--026' and not (contains(@class, '--outside-month'))]"));
             elementMethods.ClickOnElement(datePickerDate);
 
         }
 
-        [Test]
+       
         /*public void FormsHobbies()
         {
             driver = new ChromeDriver();
@@ -147,13 +146,10 @@ namespace AutomationProject.Tests
 
         }*/
 
-        [TearDown]
-        public void TearDown()
-        {
-            // driver.Quit();
-            webDriver.Close();
-        }
 
     }
 }
+
+    
+
 
