@@ -97,7 +97,7 @@ namespace AutomationProject.Tests
         [TearDown]
         public void TearDown()
         {
-            // webDriver.Quit();
+            // driver.Quit();
             webDriver.Close();
         }
     }

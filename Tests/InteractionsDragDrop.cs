@@ -103,7 +103,7 @@ namespace AutomationProject.Tests
         [TearDown]
         public void TearDown()
         {
-            // webDriver.Close();
+            // driver.Close();
              webDriver.Dispose();
         }
     }

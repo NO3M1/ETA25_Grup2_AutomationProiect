@@ -9,12 +9,13 @@ using AutomationProject.HelperMethods;
 using AutomationProject.Pages;
 using Grup2_AutomationProject.NET.Pages;
 using Grup2_AutomationProject.NET.HelperMethods;
+using Grup2_AutomationProject.NET.BasePage;
 
 namespace AutomationProject.Tests
 {
-    public class FramesTest
+    public class FramesTest : TestBasePage
     {
-        IWebDriver webDriver;
+       
         ElementMethods elementMethods;
         HomePage homePage;
         CommonPage commonPage;
@@ -26,14 +27,13 @@ namespace AutomationProject.Tests
         [Test]
         public void FramesInteractions()
         {
-            webDriver = new ChromeDriver();
-            webDriver.Navigate().GoToUrl("https://demoqa.com/");
-            webDriver.Manage().Window.Maximize();
+       
+        
 
-            elementMethods = new ElementMethods(webDriver);
-            homePage = new HomePage(webDriver);
-            commonPage = new CommonPage(webDriver);
-            framesPage = new FramesPage(webDriver);
+            elementMethods = new ElementMethods(driver);
+            homePage = new HomePage(driver);
+            commonPage = new CommonPage(driver);
+            framesPage = new FramesPage(driver);
             
             homePage.ClickOnAlertsFrameElement();
             commonPage.GoToMenu("Frames");
@@ -41,35 +41,35 @@ namespace AutomationProject.Tests
             framesPage.GetTextFromFrame1();
 
             //revenim la main content
-            webDriver.SwitchTo().DefaultContent();
+            driver.SwitchTo().DefaultContent();
 
             framesPage.GetTextFromFrame2();
 
 
 /*          OLD CODE 
  *           
-            IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
+            IJavaScriptExecutor jsExec = (IJavaScriptExecutor)driver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
-            //IWebElement framesButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][3]"));
-            IWebElement framesButton = webDriver.FindElement(By.Id("item-2"));
+            //IWebElement framesButton = driver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][3]"));
+            IWebElement framesButton = driver.FindElement(By.Id("item-2"));
             elementMethods.ClickOnElement(framesButton);
 
-            List<IWebElement> listFrames = webDriver.FindElements(By.XPath("//div[@class='element-list collapse show']//li[@class='btn btn-light ']")).ToList();
+            List<IWebElement> listFrames = driver.FindElements(By.XPath("//div[@class='element-list collapse show']//li[@class='btn btn-light ']")).ToList();
             elementMethods.ClickOnElement(listFrames[2]);
 
-            IWebElement frame1 = webDriver.FindElement(By.Id("frame1"));
+            IWebElement frame1 = driver.FindElement(By.Id("frame1"));
 
-            webDriver.SwitchTo().Frame(frame1);
+            driver.SwitchTo().Frame(frame1);
 
-            IWebElement textFrame1 = webDriver.FindElement(By.Id("sampleHeading"));
+            IWebElement textFrame1 = driver.FindElement(By.Id("sampleHeading"));
             Console.WriteLine($"Text Frame 1 is: {textFrame1.Text}");
 
-            webDriver.SwitchTo().DefaultContent();
-            IWebElement frame2 = webDriver.FindElement(By.Id("frame2"));
-            webDriver.SwitchTo().Frame(frame2);
+            driver.SwitchTo().DefaultContent();
+            IWebElement frame2 = driver.FindElement(By.Id("frame2"));
+            driver.SwitchTo().Frame(frame2);
 
-            IWebElement textFrame2 = webDriver.FindElement(By.Id("sampleHeading"));
+            IWebElement textFrame2 = driver.FindElement(By.Id("sampleHeading"));
             Console.WriteLine($"Text Frame 2 is: {textFrame2.Text}");*/
 
         }
@@ -77,65 +77,52 @@ namespace AutomationProject.Tests
         [Test]
         public void NestedFrames()
         {
-            webDriver = new ChromeDriver();
-            webDriver.Navigate().GoToUrl("https://demoqa.com/");
-            webDriver.Manage().Window.Maximize();
+      
 
-            elementMethods = new ElementMethods(webDriver);
+            elementMethods = new ElementMethods(driver);
 
-            IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
+            IJavaScriptExecutor jsExec = (IJavaScriptExecutor)driver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
-            IWebElement alertsFramesButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][3]"));
+            IWebElement alertsFramesButton = driver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][3]"));
             elementMethods.ClickOnElement(alertsFramesButton);
 
-            List<IWebElement> listFrames = webDriver.FindElements(By.XPath("//div[@class='element-list collapse show']//li[@class='btn btn-light ']")).ToList();
+            List<IWebElement> listFrames = driver.FindElements(By.XPath("//div[@class='element-list collapse show']//li[@class='btn btn-light ']")).ToList();
             elementMethods.ClickOnElement(listFrames[3]);
 
-            IWebElement parentFrame = webDriver.FindElement(By.Id("frame1"));
-            webDriver.SwitchTo().Frame(parentFrame);
+            IWebElement parentFrame = driver.FindElement(By.Id("frame1"));
+            driver.SwitchTo().Frame(parentFrame);
 
-            string bodyText = webDriver.FindElement(By.TagName("body")).Text;
+            string bodyText = driver.FindElement(By.TagName("body")).Text;
             Console.WriteLine("Parent frame body text is: " + bodyText);
 
-            IWebElement childFrame = webDriver.FindElement(By.TagName("iframe"));
-            webDriver.SwitchTo().Frame(childFrame);
+            IWebElement childFrame = driver.FindElement(By.TagName("iframe"));
+            driver.SwitchTo().Frame(childFrame);
 
-            string childFrameText = webDriver.FindElement(By.TagName("p")).Text;
+            string childFrameText = driver.FindElement(By.TagName("p")).Text;
             Console.WriteLine("Child frame text is: " + childFrameText);
 
         }
         [Test]
         public void Modals()
         {
-            webDriver = new ChromeDriver();
-            webDriver.Navigate().GoToUrl("https://demoqa.com/");
-            webDriver.Manage().Window.Maximize();
+         
 
-            elementMethods = new ElementMethods(webDriver);
+            elementMethods = new ElementMethods(driver);
 
-            IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
+            IJavaScriptExecutor jsExec = (IJavaScriptExecutor)driver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
-            IWebElement alertsFramesButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][3]"));
+            IWebElement alertsFramesButton = driver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][3]"));
             elementMethods.ClickOnElement(alertsFramesButton);
 
-            List<IWebElement> listFrames = webDriver.FindElements(By.XPath("//div[@class='element-list collapse show']//li[@class='btn btn-light ']")).ToList();
+            List<IWebElement> listFrames = driver.FindElements(By.XPath("//div[@class='element-list collapse show']//li[@class='btn btn-light ']")).ToList();
             elementMethods.ClickOnElement(listFrames[4]);
 
-            IWebElement smallModal = webDriver.FindElement(By.Id("showSmallModal"));
+            IWebElement smallModal = driver.FindElement(By.Id("showSmallModal"));
             elementMethods.ClickOnElement(smallModal);
         }
 
-          
- 
-
-
-        [TearDown]
-        public void TearDown()
-        {
-            //webDriver.Close();
-              webDriver.Dispose();
-        }
+            
     }
 }

@@ -48,9 +48,9 @@ namespace AutomationProject.Tests
 
 
 
-            /*IWebElement genderMale = webDriver.FindElement(By.XPath("//label[@for='gender-radio-1']"));
-            IWebElement genderFemale = webDriver.FindElement(By.XPath("//label[@for='gender-radio-2']"));
-            IWebElement genderOther = webDriver.FindElement(By.XPath("//label[@for='gender-radio-3']"));
+            /*IWebElement genderMale = driver.FindElement(By.XPath("//label[@for='gender-radio-1']"));
+            IWebElement genderFemale = driver.FindElement(By.XPath("//label[@for='gender-radio-2']"));
+            IWebElement genderOther = driver.FindElement(By.XPath("//label[@for='gender-radio-3']"));
 
             string gender = "Male";
 
@@ -109,25 +109,25 @@ namespace AutomationProject.Tests
         [Test]
         /*public void FormsHobbies()
         {
-            webDriver = new ChromeDriver();
-            webDriver.Navigate().GoToUrl("https://demoqa.com/");
-            webDriver.Manage().Window.Maximize();
+            driver = new ChromeDriver();
+            driver.Navigate().GoToUrl("https://demoqa.com/");
+            driver.Manage().Window.Maximize();
 
-            elementMethods = new ElementMethods(webDriver);
+            elementMethods = new ElementMethods(driver);
 
-            IJavaScriptExecutor jsExec = (IJavaScriptExecutor)webDriver;
+            IJavaScriptExecutor jsExec = (IJavaScriptExecutor)driver;
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
-            IWebElement formsButton = webDriver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][2]"));
+            IWebElement formsButton = driver.FindElement(By.XPath("//div[@class='card mt-4 top-card'][2]"));
             elementMethods.ClickOnElement(formsButton);
 
 
-            IWebElement elementPracticeForms = webDriver.FindElement(By.XPath("//*[text()='Practice Form']"));
+            IWebElement elementPracticeForms = driver.FindElement(By.XPath("//*[text()='Practice Form']"));
             elementMethods.ClickOnElement(elementPracticeForms);
 
-            IWebElement sportsCheckBox = webDriver.FindElement(By.XPath("//label[@for='hobbies-checkbox-1']"));
-            IWebElement readingCheckBox = webDriver.FindElement(By.XPath("//label[@for='hobbies-checkbox-2']"));
-            IWebElement musicCheckBox = webDriver.FindElement(By.XPath("//label[@for='hobbies-checkbox-3']"));
+            IWebElement sportsCheckBox = driver.FindElement(By.XPath("//label[@for='hobbies-checkbox-1']"));
+            IWebElement readingCheckBox = driver.FindElement(By.XPath("//label[@for='hobbies-checkbox-2']"));
+            IWebElement musicCheckBox = driver.FindElement(By.XPath("//label[@for='hobbies-checkbox-3']"));
 
             jsExec.ExecuteScript("window.scrollTo(0,1000)");
 
@@ -150,7 +150,7 @@ namespace AutomationProject.Tests
         [TearDown]
         public void TearDown()
         {
-            // webDriver.Quit();
+            // driver.Quit();
             webDriver.Close();
         }
 
