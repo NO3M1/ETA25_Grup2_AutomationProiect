@@ -4,21 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutomationProject.HelperMethods;
+using Grup2_AutomationProject.NET.Access;
 using Grup2_AutomationProject.NET.BasePage;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
 namespace AutomationProject.Tests
 {
-    public class WebTable : TestBasePage
+    public class WebTableTest : TestBasePage
     {
         
         ElementMethods elementMethods;
-
+     
         [Test]
         public void WebTableMethod()
         {
-         
+
+            var webTableData = new WebTableData(1);
+
 
             //initializam
             elementMethods = new ElementMethods(driver);
@@ -35,7 +38,7 @@ namespace AutomationProject.Tests
             IWebElement addBtnWebTables = driver.FindElement(By.Id("addNewRecordButton"));
             elementMethods.ClickOnElement(addBtnWebTables);
 
-            PopulateRegistrationForm(driver, "Noemi", "Sz", "test@email.com", "36", "5500", "IT");
+            PopulateRegistrationForm(driver,webTableData);
             
             string firstNameInTable = GetColumnFromRow(4, 1);
             string lastNameInTable = GetColumnFromRow(4, 2);
@@ -51,7 +54,7 @@ namespace AutomationProject.Tests
             }
 
             elementMethods.ClickOnElement(addBtnWebTables);
-            PopulateRegistrationForm(driver, "Noemi", "Sz", "test@email.com", "44", "6000", "Finance");
+            PopulateRegistrationForm(driver, webTableData);
 
             firstNameInTable = GetColumnFromRow(5, 1);
             lastNameInTable = GetColumnFromRow(5, 2);
@@ -71,7 +74,7 @@ namespace AutomationProject.Tests
             return column.Text;
         }
 
-        public void PopulateRegistrationForm(IWebDriver driver, string firstName, string lastName, string email, string age, string salary, string department)
+        public void PopulateRegistrationForm(IWebDriver driver, WebTableData webTableData)
         {
 
             IWebElement firstNameField = driver.FindElement(By.Id("firstName"));
@@ -82,12 +85,12 @@ namespace AutomationProject.Tests
             IWebElement departmentField = driver.FindElement(By.Id("department"));
             IWebElement registrationSubmitBtn = driver.FindElement(By.Id("submit"));
 
-            elementMethods.FillElement(firstNameField, firstName);
-            elementMethods.FillElement(lastNameField, lastName);        
-            elementMethods.FillElement(emailField, email);
-            elementMethods.FillElement(ageField, age);
-            elementMethods.FillElement(salaryField, salary);
-            elementMethods.FillElement(departmentField, department);
+            elementMethods.FillElement(firstNameField, webTableData.FirstName);
+            elementMethods.FillElement(lastNameField, webTableData.LastName);        
+            elementMethods.FillElement(emailField, webTableData.UserEmail);
+            elementMethods.FillElement(ageField, webTableData.Age);
+            elementMethods.FillElement(salaryField, webTableData.Salary);
+            elementMethods.FillElement(departmentField, webTableData.Department);
 
             elementMethods.ClickOnElement(registrationSubmitBtn);
 
